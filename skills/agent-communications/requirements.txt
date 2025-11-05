@@ -1,0 +1,12 @@
+# Agent-Communications Python Dependencies
+
+# Core dependencies
+python-dotenv==1.0.0
+
+# Email (Proton Bridge IMAP/SMTP)
+# Note: imaplib and smtplib are built-in Python libraries
+
+# Channel integrations
+python-telegram-bot==20.7     # Telegram - ACTIVE
+discord.py==2.3.2             # Discord - ACTIVE
+# requests==2.31.0            # HTTP requests for APIs

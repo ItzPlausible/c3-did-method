@@ -1,0 +1,99 @@
+<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradient definitions for futuristic look -->
+    <linearGradient id="outerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#0099cc;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#004d66;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="middleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b35;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#cc4400;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#992200;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="innerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00ff88;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#00cc55;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#008833;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Glow effects -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <filter id="innerGlow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="300" height="200" fill="#0a0a0a"/>
+  
+  <!-- Outer C (largest) -->
+  <path d="M 80 100 
+           A 50 50 0 1 1 80 99.9
+           A 40 40 0 1 0 80 100.1 Z" 
+        fill="url(#outerGradient)" 
+        filter="url(#glow)"
+        opacity="0.9"/>
+  
+  <!-- Middle C (medium) -->
+  <path d="M 110 100 
+           A 35 35 0 1 1 110 99.9
+           A 27 27 0 1 0 110 100.1 Z" 
+        fill="url(#middleGradient)" 
+        filter="url(#innerGlow)"
+        opacity="0.85"/>
+  
+  <!-- Inner C (smallest) -->
+  <path d="M 130 100 
+           A 25 25 0 1 1 130 99.9
+           A 18 18 0 1 0 130 100.1 Z" 
+        fill="url(#innerGradient)" 
+        filter="url(#innerGlow)"
+        opacity="0.8"/>
+  
+  <!-- Connecting elements to show cooperation -->
+  <circle cx="75" cy="85" r="2" fill="#00d4ff" opacity="0.6"/>
+  <circle cx="85" cy="115" r="2" fill="#ff6b35" opacity="0.6"/>
+  <circle cx="105" cy="85" r="2" fill="#00ff88" opacity="0.6"/>
+  
+  <!-- Subtle connecting lines -->
+  <line x1="77" y1="87" x2="83" y2="113" stroke="#ffffff" stroke-width="0.5" opacity="0.3"/>
+  <line x1="87" y1="113" x2="103" y2="87" stroke="#ffffff" stroke-width="0.5" opacity="0.3"/>
+  <line x1="103" y1="87" x2="77" y2="87" stroke="#ffffff" stroke-width="0.5" opacity="0.3"/>
+  
+  <!-- Company text -->
+  <text x="150" y="75" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#00d4ff">
+    C3 ALLIANCE
+  </text>
+  
+  <text x="150" y="95" font-family="Arial, sans-serif" font-size="10" fill="#ffffff" opacity="0.8">
+    COSMIC COMMONS
+  </text>
+  <text x="150" y="107" font-family="Arial, sans-serif" font-size="10" fill="#ffffff" opacity="0.8">
+    COMMUNITIES ALLIANCE
+  </text>
+  
+  <!-- Futuristic accent elements -->
+  <rect x="150" y="115" width="80" height="1" fill="url(#outerGradient)" opacity="0.6"/>
+  <rect x="150" y="120" width="60" height="0.5" fill="url(#middleGradient)" opacity="0.4"/>
+  
+  <!-- Star field effect for cosmic theme -->
+  <circle cx="250" cy="30" r="0.5" fill="#ffffff" opacity="0.6"/>
+  <circle cx="270" cy="45" r="0.8" fill="#00d4ff" opacity="0.4"/>
+  <circle cx="280" cy="25" r="0.3" fill="#ffffff" opacity="0.8"/>
+  <circle cx="260" cy="160" r="0.6" fill="#00ff88" opacity="0.5"/>
+  <circle cx="275" cy="175" r="0.4" fill="#ffffff" opacity="0.7"/>
+</svg>

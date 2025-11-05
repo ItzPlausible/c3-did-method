@@ -1,0 +1,35 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Office temporary files
+~$*.docx
+~$*.xlsx
+~$*.pptx
+*.tmp
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+secrets/
+
+# Private/sensitive documents (if any)
+private/
+confidential/
+*.key
+*.pem
