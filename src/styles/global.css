@@ -1,0 +1,323 @@
+/*
+ * Voice | Plausible Potentials
+ * Design System - Barbre Crest Palette
+ * 
+ * Crimson, Royal Blue, Purple fields with Gold accents
+ */
+
+/* ================================================
+   CSS CUSTOM PROPERTIES
+   ================================================ */
+:root {
+  /* Primary Palette - Barbre Crest */
+  --crimson: #9B1B30;
+  --crimson-light: #C42847;
+  --crimson-dark: #6D1321;
+  
+  --royal-blue: #1E3A5F;
+  --royal-blue-light: #2C5282;
+  --royal-blue-dark: #132740;
+  
+  --purple: #4A1942;
+  --purple-light: #6B2C66;
+  --purple-dark: #2D0F28;
+  
+  --gold: #C9A227;
+  --gold-light: #E4C04D;
+  --gold-dark: #9A7B1C;
+  
+  /* Neutrals */
+  --white: #FEFEFE;
+  --off-white: #F7F5F2;
+  --cream: #F0EDE5;
+  --gray-100: #E8E5E0;
+  --gray-200: #D1CCC4;
+  --gray-300: #A8A299;
+  --gray-400: #7A756C;
+  --gray-500: #5C574F;
+  --gray-600: #3D3935;
+  --gray-700: #2A2724;
+  --gray-800: #1A1816;
+  --black: #0D0C0B;
+  
+  /* Semantic Colors */
+  --color-primary: var(--crimson);
+  --color-secondary: var(--royal-blue);
+  --color-accent: var(--gold);
+  --color-accent-alt: var(--purple);
+  
+  --color-text: var(--gray-800);
+  --color-text-muted: var(--gray-500);
+  --color-text-inverse: var(--off-white);
+  
+  --color-background: var(--off-white);
+  --color-surface: var(--white);
+  --color-border: var(--gray-200);
+  
+  /* Typography Scale */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Source Sans 3', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  
+  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+  --text-base: clamp(1rem, 0.925rem + 0.375vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1rem + 0.625vw, 1.375rem);
+  --text-xl: clamp(1.25rem, 1.1rem + 0.75vw, 1.625rem);
+  --text-2xl: clamp(1.5rem, 1.25rem + 1.25vw, 2.25rem);
+  --text-3xl: clamp(1.875rem, 1.5rem + 1.875vw, 3rem);
+  --text-4xl: clamp(2.25rem, 1.75rem + 2.5vw, 4rem);
+  --text-5xl: clamp(3rem, 2.25rem + 3.75vw, 5.5rem);
+  
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  
+  /* Layout */
+  --max-width-prose: 65ch;
+  --max-width-content: 1200px;
+  --max-width-wide: 1400px;
+  
+  /* Effects */
+  --shadow-sm: 0 1px 2px rgba(13, 12, 11, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(13, 12, 11, 0.08), 0 2px 4px -2px rgba(13, 12, 11, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(13, 12, 11, 0.1), 0 4px 6px -4px rgba(13, 12, 11, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(13, 12, 11, 0.1), 0 8px 10px -6px rgba(13, 12, 11, 0.05);
+  
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-full: 9999px;
+  
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text: var(--gray-100);
+    --color-text-muted: var(--gray-400);
+    --color-text-inverse: var(--gray-800);
+    
+    --color-background: var(--gray-800);
+    --color-surface: var(--gray-700);
+    --color-border: var(--gray-600);
+    
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* ================================================
+   RESET & BASE
+   ================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.7;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  min-height: 100vh;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* ================================================
+   TYPOGRAPHY
+   ================================================ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+h1 { font-size: var(--text-4xl); }
+h2 { font-size: var(--text-3xl); }
+h3 { font-size: var(--text-2xl); }
+h4 { font-size: var(--text-xl); }
+h5 { font-size: var(--text-lg); }
+h6 { font-size: var(--text-base); }
+
+p {
+  margin-bottom: var(--space-4);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--crimson-dark);
+}
+
+strong {
+  font-weight: 600;
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--gray-100);
+  padding: 0.2em 0.4em;
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-color-scheme: dark) {
+  code {
+    background: var(--gray-600);
+  }
+}
+
+blockquote {
+  border-left: 4px solid var(--gold);
+  padding-left: var(--space-6);
+  margin: var(--space-8) 0;
+  font-style: italic;
+  color: var(--color-text-muted);
+}
+
+/* ================================================
+   UTILITIES
+   ================================================ */
+.container {
+  width: 100%;
+  max-width: var(--max-width-content);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+}
+
+.container--wide {
+  max-width: var(--max-width-wide);
+}
+
+.container--prose {
+  max-width: var(--max-width-prose);
+}
+
+.gold-accent {
+  color: var(--gold);
+}
+
+.gold-border {
+  border-color: var(--gold);
+}
+
+.crimson-bg {
+  background-color: var(--crimson);
+  color: var(--color-text-inverse);
+}
+
+.royal-blue-bg {
+  background-color: var(--royal-blue);
+  color: var(--color-text-inverse);
+}
+
+.purple-bg {
+  background-color: var(--purple);
+  color: var(--color-text-inverse);
+}
+
+/* Text Balance for Headlines */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Visually Hidden (Accessibility) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ================================================
+   ANIMATIONS
+   ================================================ */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade-in {
+  animation: fadeIn var(--transition-slow) ease forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp var(--transition-slow) ease forwards;
+}
+
+/* Staggered animations */
+.stagger > * {
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+.stagger > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger > *:nth-child(5) { animation-delay: 0.5s; }

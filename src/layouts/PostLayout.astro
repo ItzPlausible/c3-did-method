@@ -1,0 +1,374 @@
+---
+import PageLayout from './PageLayout.astro';
+import FormattedDate from '@/components/FormattedDate.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  heroImage?: string;
+  author?: string;
+  category?: string;
+  tags?: string[];
+}
+
+const { 
+  title, 
+  description, 
+  pubDate, 
+  updatedDate, 
+  heroImage, 
+  author = 'JW',
+  category,
+  tags = []
+} = Astro.props;
+---
+
+<PageLayout title={title} description={description} image={heroImage}>
+  <article class="post">
+    {heroImage && (
+      <div class="post__hero">
+        <img src={heroImage} alt="" class="post__hero-image" />
+        <div class="post__hero-overlay"></div>
+      </div>
+    )}
+    
+    <header class="post__header container container--prose">
+      {category && (
+        <a href={`/posts/category/${category}`} class="post__category">
+          {category.replace('-', ' ')}
+        </a>
+      )}
+      
+      <h1 class="post__title text-balance">{title}</h1>
+      
+      <p class="post__description">{description}</p>
+      
+      <div class="post__meta">
+        <span class="post__author">
+          <span class="post__author-label">By</span>
+          <span class="post__author-name">{author}</span>
+        </span>
+        
+        <span class="post__date">
+          <FormattedDate date={pubDate} />
+        </span>
+        
+        {updatedDate && (
+          <span class="post__updated">
+            Updated: <FormattedDate date={updatedDate} />
+          </span>
+        )}
+      </div>
+      
+      {tags.length > 0 && (
+        <div class="post__tags">
+          {tags.map((tag) => (
+            <a href={`/posts/tag/${tag}`} class="post__tag">
+              #{tag}
+            </a>
+          ))}
+        </div>
+      )}
+    </header>
+    
+    <div class="post__content container container--prose prose">
+      <slot />
+    </div>
+    
+    <footer class="post__footer container container--prose">
+      <div class="post__share">
+        <span class="post__share-label">Share this post:</span>
+        <div class="post__share-links">
+          <a 
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(Astro.url.toString())}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="post__share-link"
+          >
+            X / Twitter
+          </a>
+          <a 
+            href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(Astro.url.toString())}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="post__share-link"
+          >
+            LinkedIn
+          </a>
+        </div>
+      </div>
+      
+      <a href="/posts" class="post__back">← Back to all posts</a>
+    </footer>
+  </article>
+</PageLayout>
+
+<style>
+  .post {
+    padding-bottom: var(--space-20);
+  }
+  
+  .post__hero {
+    position: relative;
+    width: 100%;
+    height: 50vh;
+    min-height: 300px;
+    max-height: 500px;
+    overflow: hidden;
+    margin-bottom: var(--space-12);
+  }
+  
+  .post__hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .post__hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.1) 50%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
+  }
+  
+  .post__header {
+    margin-bottom: var(--space-12);
+  }
+  
+  .post__category {
+    display: inline-block;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+    text-decoration: none;
+    margin-bottom: var(--space-4);
+    transition: color var(--transition-fast);
+  }
+  
+  .post__category:hover {
+    color: var(--gold-dark);
+  }
+  
+  .post__title {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-4);
+    color: var(--royal-blue);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .post__title {
+      color: var(--gray-100);
+    }
+  }
+  
+  .post__description {
+    font-size: var(--text-xl);
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    margin-bottom: var(--space-6);
+  }
+  
+  .post__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-4);
+  }
+  
+  .post__author-label {
+    color: var(--gray-400);
+  }
+  
+  .post__author-name {
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  
+  .post__date::before,
+  .post__updated::before {
+    content: '•';
+    margin-right: var(--space-4);
+    color: var(--gray-300);
+  }
+  
+  .post__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  
+  .post__tag {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    text-decoration: none;
+    padding: var(--space-1) var(--space-3);
+    background: var(--gray-100);
+    border-radius: var(--radius-full);
+    transition: 
+      background-color var(--transition-fast),
+      color var(--transition-fast);
+  }
+  
+  .post__tag:hover {
+    background: var(--crimson);
+    color: var(--white);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .post__tag {
+      background: var(--gray-700);
+    }
+  }
+  
+  /* Prose Styles */
+  .prose {
+    font-size: var(--text-lg);
+    line-height: 1.8;
+  }
+  
+  .prose :global(h2) {
+    font-size: var(--text-2xl);
+    margin-top: var(--space-12);
+    margin-bottom: var(--space-4);
+    color: var(--royal-blue);
+  }
+  
+  .prose :global(h3) {
+    font-size: var(--text-xl);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-3);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .prose :global(h2),
+    .prose :global(h3) {
+      color: var(--gray-100);
+    }
+  }
+  
+  .prose :global(p) {
+    margin-bottom: var(--space-6);
+  }
+  
+  .prose :global(a) {
+    color: var(--crimson);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  
+  .prose :global(a:hover) {
+    color: var(--crimson-dark);
+  }
+  
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin-bottom: var(--space-6);
+    padding-left: var(--space-6);
+  }
+  
+  .prose :global(li) {
+    margin-bottom: var(--space-2);
+  }
+  
+  .prose :global(blockquote) {
+    border-left: 4px solid var(--gold);
+    padding-left: var(--space-6);
+    margin: var(--space-8) 0;
+    font-style: italic;
+    color: var(--color-text-muted);
+  }
+  
+  .prose :global(pre) {
+    background: var(--gray-800);
+    color: var(--gray-100);
+    padding: var(--space-6);
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    margin: var(--space-8) 0;
+  }
+  
+  .prose :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+  
+  .prose :global(pre code) {
+    background: none;
+    padding: 0;
+  }
+  
+  .prose :global(img) {
+    border-radius: var(--radius-md);
+    margin: var(--space-8) 0;
+  }
+  
+  .prose :global(hr) {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: var(--space-12) 0;
+  }
+  
+  .post__footer {
+    margin-top: var(--space-16);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border);
+  }
+  
+  .post__share {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+  
+  .post__share-label {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  
+  .post__share-links {
+    display: flex;
+    gap: var(--space-3);
+  }
+  
+  .post__share-link {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--royal-blue);
+    text-decoration: none;
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--royal-blue);
+    border-radius: var(--radius-md);
+    transition: 
+      background-color var(--transition-fast),
+      color var(--transition-fast);
+  }
+  
+  .post__share-link:hover {
+    background: var(--royal-blue);
+    color: var(--white);
+  }
+  
+  .post__back {
+    display: inline-block;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+  
+  .post__back:hover {
+    color: var(--crimson);
+  }
+</style>
