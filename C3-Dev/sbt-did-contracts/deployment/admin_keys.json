@@ -1,0 +1,37 @@
+{
+  "network": "preprod",
+  "purpose": "C3 Alliance SBT-DID 3-of-5 Pioneer Multi-Sig",
+  "admin_1_pkh": "9f2721060792fdfd85a2ef1484fc3930d31aaf62f85382574b9b0488",
+  "admin_1_source": "Lace Wallet (addr_test1qz0jwggxq7f0mlv95th3fp8u8ycdxx40vtu98qjhfwdsfz8g3umhapfv9jh3837v4ex4n8v0d8kfjy8pntp4a9s68urq08q9nh)",
+  "generated_admins": [
+    {
+      "admin_number": 2,
+      "signing_key_hex": "40b55d63c39c607e66c15746e6681e6cbd338d64f22c9be75d8c589445293a43",
+      "verification_key_hex": "5e349a91d83c0c1d1310467037e0f97cfc1663e86259c5c7db2c1f085ae5581a",
+      "payment_key_hash": "aa1689dbe15a4cf56cb41da0e1ec424067f3cd1e588d9bc2cbf0e682",
+      "note": "TEST KEY FOR PREPROD ONLY - DO NOT USE ON MAINNET"
+    },
+    {
+      "admin_number": 3,
+      "signing_key_hex": "8fb33a08b0b5f9fd91e28588d4fe4bc15a728046580a4a1cad587dda27894997",
+      "verification_key_hex": "dc343f54e41d3b56e864db92ab4571d6e619a6970aa1890b33a18a3e4e040900",
+      "payment_key_hash": "91e8782dbb46b1531559302cc40cacbf38f383877ba879473441fa5d",
+      "note": "TEST KEY FOR PREPROD ONLY - DO NOT USE ON MAINNET"
+    },
+    {
+      "admin_number": 4,
+      "signing_key_hex": "e6f028beff7b6e8941f062e79311f85d6f0228b325b3da2b9afd83a34e61b528",
+      "verification_key_hex": "57e5137ff587588895ce00b31b8120dffd9a089a5a03a0d4345176c782ed68b7",
+      "payment_key_hash": "466aa7e3d5250fac485c971771fa824175cf64fcaca8f3ff393a38a1",
+      "note": "TEST KEY FOR PREPROD ONLY - DO NOT USE ON MAINNET"
+    },
+    {
+      "admin_number": 5,
+      "signing_key_hex": "5c16d67bc6ff5c772838d67f8c1241425a7dd98ae2efc95355c901944dcbb1f9",
+      "verification_key_hex": "463d2883b10358aa33ad1dd7c6a50ccf228bf1db6de46a88683765c730383166",
+      "payment_key_hash": "ac98817139c49de710106b6c10c719c74d522f0995596a6e39fd0e11",
+      "note": "TEST KEY FOR PREPROD ONLY - DO NOT USE ON MAINNET"
+    }
+  ],
+  "warning": "TEST KEYS FOR PREPROD ONLY"
+}

@@ -1,0 +1,38 @@
+name = "cocoa-mvp"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Account: Team@Plausiblepotentials.com (Pro Plan)
+# account_id = "03b272f4cb882d3d9bc52091fb5241d8"
+
+[vars]
+ENVIRONMENT = "development"
+APP_NAME = "CoCoA"
+DEFAULT_FACTION = "syndicate"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "cocoa-test-db"
+database_id = "a65f0d7e-c8d9-4d8a-8952-5011310e9e07"
+
+[[kv_namespaces]]
+binding = "KV"
+id = "2400bfdcf6b14d829db1c9891415fbcc"
+
+[ai]
+binding = "AI"
+
+# Static assets (chat UI)
+[site]
+bucket = "./public"
+
+# Development settings
+[dev]
+port = 8787
+local_protocol = "http"
+
+# Production route (add custom domain later)
+# [[routes]]
+# pattern = "cocoa.plausiblepotentials.com/*"
+# zone_name = "plausiblepotentials.com"
