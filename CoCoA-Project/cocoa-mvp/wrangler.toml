@@ -1,0 +1,27 @@
+name = "cocoa-mvp"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+account_id = "d90dcd7b745fd3d5fe182073b3f2ad54"
+
+# D1 Database binding
+[[d1_databases]]
+binding = "DB"
+database_name = "cocoa-mvp-db"
+database_id = "a54ce1a6-5804-40e6-b38d-07fdfea8d478"
+
+# KV Namespace for sessions
+[[kv_namespaces]]
+binding = "KV"
+id = "344d8f9a2c25477ab039f8b22d22920b"
+
+# Workers AI binding
+[ai]
+binding = "AI"
+
+# Static assets (chat UI)
+[site]
+bucket = "./public"
+
+# Environment variables (secrets should be set via wrangler secret)
+[vars]
+ENVIRONMENT = "development"

@@ -1,0 +1,34 @@
+{
+  "name": "cocoa-mvp",
+  "version": "0.1.0",
+  "description": "CoCoA MVP - Conversational Form Completer for C3 Alliance",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "d1:migrate": "wrangler d1 execute cocoa-mvp-db --file=./migrations/schema.sql",
+    "d1:seed": "wrangler d1 execute cocoa-mvp-db --file=./migrations/seed.sql"
+  },
+  "dependencies": {
+    "@cloudflare/kv-asset-handler": "^0.3.0",
+    "@meshsdk/core": "^1.6.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240512.0",
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0",
+    "wrangler": "^4.47.0"
+  },
+  "keywords": [
+    "cloudflare-workers",
+    "cocoa",
+    "c3-alliance",
+    "cooperative",
+    "cardano"
+  ],
+  "author": "Plausible Potentials",
+  "license": "MIT"
+}

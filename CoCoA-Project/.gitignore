@@ -1,0 +1,99 @@
+# CoCoA Project .gitignore
+
+# Sensitive files - NEVER COMMIT THESE
+.env
+*.key
+*.pem
+*credentials*.json
+google-workspace-credentials.json
+secrets/
+.secrets/
+
+# API Keys and Tokens
+DISCORD_BOT_TOKEN
+TELEGRAM_BOT_TOKEN
+*_TOKEN
+*_SECRET
+*_API_KEY
+
+# Personal Context (optional - uncomment to keep profile private)
+# context/profile.md
+# context/learnings.md
+context/session-history.json
+context/logs/*.log
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+venv/
+ENV/
+env/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+.npm
+.eslintcache
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Docker
+docker-compose.override.yml
+
+# Logs
+logs/
+*.log
+
+# OS
+Thumbs.db
+desktop.ini
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+*.cache
+
+# Claude Desktop Config (contains tokens)
+claude_desktop_config.json
+
+# Local testing
+test-output/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Keep these files for structure
+!context/.gitkeep
+!logs/.gitkeep
+!src/.gitkeep
+!workflows/.gitkeep

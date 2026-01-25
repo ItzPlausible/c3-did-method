@@ -1,0 +1,7 @@
+name = "c3dex"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+account_id = "d90dcd7b745fd3d5fe182073b3f2ad54"
+
+[site]
+bucket = "./public"

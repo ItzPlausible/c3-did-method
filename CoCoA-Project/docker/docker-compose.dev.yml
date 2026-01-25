@@ -1,0 +1,75 @@
+# CoCoA Docker Compose Configuration
+# Development Environment
+
+version: "3.8"
+
+services:
+  # Main CoCoA Development Container
+  cocoa-dev:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.dev
+    container_name: cocoa-development
+    volumes:
+      # Mount context for persistence
+      - ../context:/app/context
+      # Mount source code for live development
+      - ../src:/app/src
+      # Mount workflows
+      - ../workflows:/app/workflows
+    environment:
+      - ENV=development
+      - DEBUG=true
+      - PYTHONUNBUFFERED=1
+      # MCP Configuration
+      - MCP_SERVERS_PATH=/app/src/mcp_servers
+      # Communication (load from .env file)
+      - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+    ports:
+      - "8080:8080" # API port
+      - "8081:8081" # Dashboard (future)
+    networks:
+      - cocoa-network
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    command: tail -f /dev/null # Keep container running for development
+
+  # Optional: PostgreSQL for future data persistence
+  # Uncomment when needed
+  # cocoa-db:
+  #   image: postgres:15-alpine
+  #   container_name: cocoa-database
+  #   environment:
+  #     POSTGRES_DB: cocoa
+  #     POSTGRES_USER: cocoa
+  #     POSTGRES_PASSWORD: ${DB_PASSWORD}
+  #   volumes:
+  #     - cocoa-db-data:/var/lib/postgresql/data
+  #   networks:
+  #     - cocoa-network
+  #   restart: unless-stopped
+
+  # Optional: Redis for caching and sessions
+  # Uncomment when needed
+  # cocoa-redis:
+  #   image: redis:7-alpine
+  #   container_name: cocoa-cache
+  #   networks:
+  #     - cocoa-network
+  #   restart: unless-stopped
+
+networks:
+  cocoa-network:
+    driver: bridge
+
+volumes:
+  cocoa-db-data:
+    driver: local
+# Usage Commands:
+# Start:    docker-compose -f docker/docker-compose.dev.yml up
+# Background: docker-compose -f docker/docker-compose.dev.yml up -d
+# Stop:     docker-compose -f docker/docker-compose.dev.yml down
+# Rebuild:  docker-compose -f docker/docker-compose.dev.yml up --build
+# Logs:     docker-compose -f docker/docker-compose.dev.yml logs -f

@@ -1,0 +1,48 @@
+# CoCoA Python Requirements
+
+# Core Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+python-dotenv==1.0.0
+
+# MCP Server Development
+anthropic==0.34.2
+
+# Discord Integration
+discord.py==2.3.2
+aiohttp==3.9.1
+
+# Telegram Integration
+python-telegram-bot==20.7
+
+# Google Workspace (additional packages if needed)
+google-auth==2.25.2
+google-auth-oauthlib==1.2.0
+google-auth-httplib2==0.2.0
+google-api-python-client==2.110.0
+
+# Data & Storage
+aiosqlite==0.19.0
+redis==5.0.1
+pyyaml==6.0.1
+
+# Utilities
+python-dateutil==2.8.2
+pytz==2023.3
+requests==2.31.0
+
+# Logging & Monitoring
+structlog==23.2.0
+colorama==0.4.6
+
+# Development Tools
+pytest==7.4.3
+pytest-asyncio==0.21.1
+black==23.12.1
+flake8==6.1.0
+
+# CLI Tools
+click==8.1.7
+rich==13.7.0
+typer==0.9.0

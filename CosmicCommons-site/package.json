@@ -1,0 +1,27 @@
+{
+  "name": "cosmiccommons-portal",
+  "version": "1.0.0",
+  "description": "C3 Alliance Investor Portal - Cosmic Commons Communities",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler pages dev public --d1=DB=d1d0dae3-cdea-4019-84cd-40a7ecc435ee --r2=DOCUMENTS",
+    "build": "echo 'Static site - no build needed'",
+    "db:list": "wrangler d1 execute pinnacle-peaks-inquiries --command='SELECT * FROM investor_inquiries ORDER BY created_at DESC LIMIT 20'",
+    "db:schema": "wrangler d1 execute pinnacle-peaks-inquiries --file=./schema.sql"
+  },
+  "keywords": [
+    "c3-alliance",
+    "cooperative",
+    "blockchain",
+    "cloudflare-pages",
+    "investor-portal"
+  ],
+  "author": "Plausible Potentials Consulting DAO LLC",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

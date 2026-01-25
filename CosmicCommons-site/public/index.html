@@ -1,0 +1,1603 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>C3 Alliance | Cosmic Commons Investment Portal</title>
+    <meta
+      name="description"
+      content="$3.6B Exit-to-Cooperative investment ecosystem. UHNW opportunities across sovereign infrastructure, cooperative economics, and regenerative technology."
+    />
+    <meta name="theme-color" content="#0A0A0F" />
+
+    <!-- Open Graph -->
+    <meta
+      property="og:title"
+      content="C3 Alliance | Cosmic Commons Investment Portal"
+    />
+    <meta
+      property="og:description"
+      content="$3.6B Exit-to-Cooperative investment ecosystem for sovereign infrastructure."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cosmiccommons.co" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ================================================================
+       COSMIC COMMONS INVESTOR PORTAL
+       Future-Themed Dynamic Interface
+       Brand: Barbre Family Crest (Crimson, Royal Blue, Purple, Gold)
+       ================================================================ */
+
+      :root {
+        /* Barbre Family Crest */
+        --crimson: #dc143c;
+        --crimson-glow: rgba(220, 20, 60, 0.4);
+        --royal-blue: #4169e1;
+        --royal-glow: rgba(65, 105, 225, 0.4);
+        --purple: #800080;
+        --purple-light: #9932cc;
+        --gold: #ffd700;
+        --gold-muted: #c9a227;
+        --gold-glow: rgba(255, 215, 0, 0.3);
+
+        /* Cosmic Dark Theme */
+        --void: #030308;
+        --space: #0a0a0f;
+        --nebula: #12121a;
+        --dust: #1a1a25;
+
+        /* Text */
+        --text-primary: #f5f5f7;
+        --text-secondary: #a0a0b0;
+        --text-muted: #6a6a7a;
+
+        /* Typography */
+        --font-display: "Cormorant Garamond", Georgia, serif;
+        --font-body: "Outfit", -apple-system, sans-serif;
+        --font-mono: "Space Mono", monospace;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        font-size: 16px;
+      }
+
+      body {
+        font-family: var(--font-body);
+        background: var(--void);
+        color: var(--text-primary);
+        min-height: 100vh;
+        overflow-x: hidden;
+        line-height: 1.6;
+      }
+
+      /* ================================================================
+       COSMIC BACKGROUND SYSTEM
+       ================================================================ */
+
+      .cosmic-bg {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .cosmic-bg__stars {
+        position: absolute;
+        inset: 0;
+        background-image:
+          radial-gradient(
+            2px 2px at 20px 30px,
+            rgba(255, 255, 255, 0.8),
+            transparent
+          ),
+          radial-gradient(
+            2px 2px at 40px 70px,
+            rgba(255, 215, 0, 0.6),
+            transparent
+          ),
+          radial-gradient(
+            1px 1px at 90px 40px,
+            rgba(255, 255, 255, 0.5),
+            transparent
+          ),
+          radial-gradient(
+            2px 2px at 130px 80px,
+            rgba(65, 105, 225, 0.6),
+            transparent
+          ),
+          radial-gradient(
+            1px 1px at 160px 120px,
+            rgba(255, 255, 255, 0.4),
+            transparent
+          );
+        background-size: 200px 200px;
+        animation: starfield 120s linear infinite;
+      }
+
+      @keyframes starfield {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(-200px);
+        }
+      }
+
+      .cosmic-bg__nebula {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse 80% 50% at 20% 20%,
+            var(--royal-glow) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse 60% 40% at 80% 30%,
+            var(--crimson-glow) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse 70% 60% at 50% 80%,
+            var(--gold-glow) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse 50% 50% at 70% 60%,
+            rgba(128, 0, 128, 0.2) 0%,
+            transparent 50%
+          );
+        animation: nebulaPulse 20s ease-in-out infinite alternate;
+      }
+
+      @keyframes nebulaPulse {
+        0% {
+          opacity: 0.6;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.8;
+          transform: scale(1.05);
+        }
+        100% {
+          opacity: 0.6;
+          transform: scale(1);
+        }
+      }
+
+      .cosmic-bg__grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 215, 0, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 215, 0, 0.03) 1px, transparent 1px);
+        background-size: 100px 100px;
+        transform: perspective(500px) rotateX(60deg);
+        transform-origin: center top;
+        mask-image: linear-gradient(
+          to bottom,
+          transparent 0%,
+          black 20%,
+          black 80%,
+          transparent 100%
+        );
+      }
+
+      .cosmic-bg__scanline {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+        animation: scanline 8s linear infinite;
+        opacity: 0.3;
+      }
+
+      @keyframes scanline {
+        0% {
+          top: 0;
+          opacity: 0;
+        }
+        5% {
+          opacity: 0.3;
+        }
+        95% {
+          opacity: 0.3;
+        }
+        100% {
+          top: 100%;
+          opacity: 0;
+        }
+      }
+
+      /* ================================================================
+       NAVIGATION
+       ================================================================ */
+
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        padding: 1rem 2rem;
+        background: linear-gradient(
+          to bottom,
+          rgba(3, 3, 8, 0.95),
+          rgba(3, 3, 8, 0.8)
+        );
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+      }
+
+      .nav__inner {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+      }
+
+      .nav__logo {
+        font-family: var(--font-display);
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--gold);
+        text-decoration: none;
+        letter-spacing: 0.05em;
+      }
+
+      .nav__logo span {
+        color: var(--text-primary);
+        font-weight: 400;
+      }
+
+      .nav__peaks {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .nav__peak {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        text-decoration: none;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        border: 1px solid transparent;
+      }
+
+      .nav__peak:hover {
+        color: var(--gold);
+        background: rgba(255, 215, 0, 0.05);
+        border-color: rgba(255, 215, 0, 0.2);
+      }
+
+      .nav__cta {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--void);
+        background: var(--gold);
+        text-decoration: none;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+      }
+
+      .nav__cta:hover {
+        background: var(--text-primary);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 20px var(--gold-glow);
+      }
+
+      /* ================================================================
+       HERO SECTION
+       ================================================================ */
+
+      .hero {
+        position: relative;
+        z-index: 1;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8rem 2rem 4rem;
+        text-align: center;
+      }
+
+      .hero__content {
+        max-width: 900px;
+      }
+
+      .hero__badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.5rem 1.25rem;
+        margin-bottom: 2rem;
+        font-size: 0.8rem;
+        font-family: var(--font-mono);
+        color: var(--gold);
+        background: rgba(255, 215, 0, 0.05);
+        border: 1px solid rgba(255, 215, 0, 0.3);
+        border-radius: 50px;
+        animation: badgePulse 3s ease-in-out infinite;
+      }
+
+      @keyframes badgePulse {
+        0%,
+        100% {
+          box-shadow: 0 0 20px transparent;
+        }
+        50% {
+          box-shadow: 0 0 30px var(--gold-glow);
+        }
+      }
+
+      .hero__badge-dot {
+        width: 8px;
+        height: 8px;
+        background: var(--gold);
+        border-radius: 50%;
+        animation: dotPulse 2s ease-in-out infinite;
+      }
+
+      @keyframes dotPulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(0.8);
+        }
+      }
+
+      .hero__title {
+        font-family: var(--font-display);
+        font-size: clamp(3rem, 10vw, 7rem);
+        font-weight: 600;
+        line-height: 1;
+        margin-bottom: 1rem;
+        background: linear-gradient(
+          135deg,
+          var(--text-primary) 0%,
+          var(--gold) 50%,
+          var(--text-primary) 100%
+        );
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: titleShimmer 5s linear infinite;
+      }
+
+      @keyframes titleShimmer {
+        0% {
+          background-position: 0% center;
+        }
+        100% {
+          background-position: 200% center;
+        }
+      }
+
+      .hero__subtitle {
+        font-family: var(--font-display);
+        font-size: clamp(1.25rem, 3vw, 1.75rem);
+        font-weight: 400;
+        font-style: italic;
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+      }
+
+      .hero__description {
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin: 0 auto 3rem;
+        line-height: 1.8;
+      }
+
+      .hero__stats {
+        display: flex;
+        justify-content: center;
+        gap: 4rem;
+        margin-bottom: 3rem;
+      }
+
+      .hero__stat {
+        text-align: center;
+      }
+
+      .hero__stat-value {
+        font-family: var(--font-display);
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 600;
+        color: var(--gold);
+        line-height: 1;
+        margin-bottom: 0.5rem;
+      }
+
+      .hero__stat-label {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .hero__actions {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        font-weight: 500;
+        text-decoration: none;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn--primary {
+        color: var(--void);
+        background: linear-gradient(
+          135deg,
+          var(--gold) 0%,
+          var(--gold-muted) 100%
+        );
+        box-shadow: 0 4px 20px var(--gold-glow);
+      }
+
+      .btn--primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px var(--gold-glow);
+      }
+
+      .btn--secondary {
+        color: var(--text-primary);
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .btn--secondary:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: var(--gold);
+        color: var(--gold);
+      }
+
+      .btn__arrow {
+        transition: transform 0.3s ease;
+      }
+
+      .btn:hover .btn__arrow {
+        transform: translateX(4px);
+      }
+
+      /* ================================================================
+       PEAKS GRID
+       ================================================================ */
+
+      .section {
+        position: relative;
+        z-index: 1;
+        padding: 6rem 2rem;
+      }
+
+      .section--dark {
+        background: rgba(18, 18, 26, 0.8);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .section__header {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+
+      .section__eyebrow {
+        display: inline-block;
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        color: var(--gold);
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        margin-bottom: 1rem;
+      }
+
+      .section__title {
+        font-family: var(--font-display);
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        font-weight: 500;
+        margin-bottom: 1rem;
+      }
+
+      .section__description {
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .peaks-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+
+      .peak-card {
+        position: relative;
+        padding: 2rem;
+        background: rgba(26, 26, 37, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.4s ease;
+        overflow: hidden;
+      }
+
+      .peak-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--peak-color, var(--gold));
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s ease;
+      }
+
+      .peak-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(255, 215, 0, 0.2);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      }
+
+      .peak-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .peak-card__icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .peak-card__name {
+        font-family: var(--font-display);
+        font-size: 1.5rem;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        color: var(--text-primary);
+      }
+
+      .peak-card__focus {
+        font-size: 0.9rem;
+        color: var(--peak-color, var(--gold));
+        margin-bottom: 1rem;
+      }
+
+      .peak-card__description {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+      }
+
+      .peak-card__allocation {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .peak-card__allocation-label {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .peak-card__allocation-value {
+        font-family: var(--font-mono);
+        font-size: 1.1rem;
+        color: var(--gold);
+      }
+
+      /* Peak Colors */
+      .peak-card--fulmina {
+        --peak-color: #dc143c;
+      }
+      .peak-card--horizonta {
+        --peak-color: #4169e1;
+      }
+      .peak-card--rikolta {
+        --peak-color: #22c55e;
+      }
+      .peak-card--fajruja {
+        --peak-color: #f97316;
+      }
+      .peak-card--vekiga {
+        --peak-color: #9932cc;
+      }
+      .peak-card--kerna {
+        --peak-color: #06b6d4;
+      }
+
+      /* ================================================================
+       E2C EXPLAINER
+       ================================================================ */
+
+      .e2c-visual {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 3rem;
+        flex-wrap: wrap;
+      }
+
+      .e2c-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        max-width: 180px;
+      }
+
+      .e2c-step__icon {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        background: rgba(255, 215, 0, 0.1);
+        border: 2px solid rgba(255, 215, 0, 0.3);
+        border-radius: 50%;
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .e2c-step:hover .e2c-step__icon {
+        transform: scale(1.1);
+        box-shadow: 0 0 40px var(--gold-glow);
+      }
+
+      .e2c-step__title {
+        font-family: var(--font-display);
+        font-size: 1.1rem;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .e2c-step__description {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+      }
+
+      .e2c-connector {
+        font-size: 1.5rem;
+        color: var(--gold);
+        opacity: 0.5;
+      }
+
+      /* ================================================================
+       TOKEN FLOW
+       ================================================================ */
+
+      .token-flow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 3rem;
+        flex-wrap: wrap;
+      }
+
+      .token {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .token__symbol {
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-mono);
+        font-size: 1rem;
+        font-weight: 700;
+        border-radius: 50%;
+        margin-bottom: 0.75rem;
+        transition: all 0.3s ease;
+      }
+
+      .token:hover .token__symbol {
+        transform: scale(1.1);
+      }
+
+      .token--jlz .token__symbol {
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        color: white;
+        box-shadow: 0 4px 20px rgba(34, 197, 94, 0.3);
+      }
+
+      .token--ppt .token__symbol {
+        background: linear-gradient(135deg, var(--gold), var(--gold-muted));
+        color: var(--void);
+        box-shadow: 0 4px 20px var(--gold-glow);
+      }
+
+      .token--comm .token__symbol {
+        background: linear-gradient(135deg, var(--royal-blue), #2e4ba8);
+        color: white;
+        box-shadow: 0 4px 20px var(--royal-glow);
+      }
+
+      .token--xpt .token__symbol {
+        background: linear-gradient(135deg, var(--purple-light), var(--purple));
+        color: white;
+        box-shadow: 0 4px 20px rgba(153, 50, 204, 0.3);
+      }
+
+      .token__name {
+        font-size: 0.85rem;
+        color: var(--text-primary);
+        margin-bottom: 0.25rem;
+      }
+
+      .token__role {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+      }
+
+      .token-arrow {
+        font-size: 1.5rem;
+        color: var(--text-muted);
+      }
+
+      /* ================================================================
+       INQUIRY FORM
+       ================================================================ */
+
+      .inquiry-section {
+        padding: 6rem 2rem;
+        background:
+          radial-gradient(
+            ellipse at 30% 50%,
+            rgba(255, 215, 0, 0.08) 0%,
+            transparent 50%
+          ),
+          var(--nebula);
+      }
+
+      .inquiry-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 4rem;
+        align-items: start;
+      }
+
+      .inquiry-info {
+        position: sticky;
+        top: 120px;
+      }
+
+      .inquiry-info__title {
+        font-family: var(--font-display);
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .inquiry-info__description {
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+        line-height: 1.8;
+      }
+
+      .inquiry-info__contact {
+        padding: 1.5rem;
+        background: rgba(255, 215, 0, 0.05);
+        border: 1px solid rgba(255, 215, 0, 0.2);
+        border-radius: 8px;
+      }
+
+      .inquiry-info__contact-label {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.5rem;
+      }
+
+      .inquiry-info__contact-email {
+        font-family: var(--font-mono);
+        font-size: 1.1rem;
+        color: var(--gold);
+        text-decoration: none;
+      }
+
+      .inquiry-form {
+        background: rgba(26, 26, 37, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+        padding: 2.5rem;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form-group--full {
+        grid-column: 1 / -1;
+      }
+
+      .form-label {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        margin-bottom: 0.5rem;
+      }
+
+      .form-label--required::after {
+        content: " *";
+        color: var(--crimson);
+      }
+
+      .form-input,
+      .form-select,
+      .form-textarea {
+        padding: 0.875rem 1rem;
+        font-family: var(--font-body);
+        font-size: 1rem;
+        color: var(--text-primary);
+        background: rgba(10, 10, 15, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .form-input:focus,
+      .form-select:focus,
+      .form-textarea:focus {
+        outline: none;
+        border-color: var(--gold);
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+      }
+
+      .form-input::placeholder,
+      .form-textarea::placeholder {
+        color: var(--text-muted);
+      }
+
+      .form-select {
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23A0A0B0'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+      }
+
+      .form-select option {
+        background: var(--space);
+        color: var(--text-primary);
+      }
+
+      .form-textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      .form-submit {
+        width: 100%;
+        padding: 1rem 2rem;
+        font-family: var(--font-body);
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--void);
+        background: linear-gradient(
+          135deg,
+          var(--gold) 0%,
+          var(--gold-muted) 100%
+        );
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+      }
+
+      .form-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px var(--gold-glow);
+      }
+
+      .form-submit:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .form-status {
+        text-align: center;
+        padding: 1rem;
+        margin-top: 1rem;
+        border-radius: 8px;
+        display: none;
+      }
+
+      .form-status--success {
+        display: block;
+        background: rgba(34, 197, 94, 0.1);
+        border: 1px solid rgba(34, 197, 94, 0.3);
+        color: #22c55e;
+      }
+
+      .form-status--error {
+        display: block;
+        background: rgba(220, 20, 60, 0.1);
+        border: 1px solid rgba(220, 20, 60, 0.3);
+        color: var(--crimson);
+      }
+
+      /* ================================================================
+       FOOTER
+       ================================================================ */
+
+      .footer {
+        position: relative;
+        z-index: 1;
+        padding: 4rem 2rem 2rem;
+        background: var(--void);
+        border-top: 1px solid rgba(255, 215, 0, 0.1);
+      }
+
+      .footer__inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .footer__brand {
+        margin-bottom: 1.5rem;
+      }
+
+      .footer__logo {
+        font-family: var(--font-display);
+        font-size: 1.5rem;
+        color: var(--gold);
+      }
+
+      .footer__tagline {
+        display: block;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        margin-top: 0.25rem;
+      }
+
+      .footer__legal {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        max-width: 700px;
+        margin: 0 auto 1.5rem;
+        line-height: 1.7;
+      }
+
+      .footer__links {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        font-size: 0.85rem;
+      }
+
+      .footer__link {
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer__link:hover {
+        color: var(--gold);
+      }
+
+      /* ================================================================
+       RESPONSIVE
+       ================================================================ */
+
+      @media (max-width: 1024px) {
+        .peaks-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .inquiry-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .inquiry-info {
+          position: static;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .nav__peaks {
+          display: none;
+        }
+
+        .hero__stats {
+          gap: 2rem;
+        }
+
+        .peaks-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .form-group--full {
+          grid-column: 1;
+        }
+
+        .e2c-visual {
+          flex-direction: column;
+        }
+
+        .e2c-connector {
+          transform: rotate(90deg);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero__actions {
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .btn {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Cosmic Background -->
+    <div class="cosmic-bg">
+      <div class="cosmic-bg__stars"></div>
+      <div class="cosmic-bg__nebula"></div>
+      <div class="cosmic-bg__grid"></div>
+      <div class="cosmic-bg__scanline"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+      <div class="nav__inner">
+        <a href="/" class="nav__logo">C3 <span>Alliance</span></a>
+        <div class="nav__peaks">
+          <a href="/peaks/fulmina.html" class="nav__peak">Fulmina</a>
+          <a href="/peaks/horizonta.html" class="nav__peak">Horizonta</a>
+          <a href="/peaks/rikolta.html" class="nav__peak">Rikolta</a>
+          <a href="/peaks/fajruja.html" class="nav__peak">Fajruja</a>
+          <a href="/peaks/vekiga.html" class="nav__peak">Vekiĝa</a>
+          <a href="/peaks/kerna.html" class="nav__peak">Kerna</a>
+        </div>
+        <a href="#inquiry" class="nav__cta">Request Access</a>
+      </div>
+    </nav>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero__content">
+          <div class="hero__badge">
+            <span class="hero__badge-dot"></span>
+            ALPHA TRANCHE ALLOCATION OPEN
+          </div>
+          <h1 class="hero__title">Cosmic Commons</h1>
+          <p class="hero__subtitle">
+            Sovereign Infrastructure for the Cooperative Economy
+          </p>
+          <p class="hero__description">
+            The C3 Alliance coordinates $3.6B in Exit-to-Cooperative investment
+            theses across six Pinnacle Peaks—transforming extractive technology
+            into regenerative infrastructure owned by workers, users, and
+            communities.
+          </p>
+          <div class="hero__stats">
+            <div class="hero__stat">
+              <div class="hero__stat-value">$3.6B</div>
+              <div class="hero__stat-label">Total Allocation</div>
+            </div>
+            <div class="hero__stat">
+              <div class="hero__stat-value">6</div>
+              <div class="hero__stat-label">Pinnacle Peaks</div>
+            </div>
+            <div class="hero__stat">
+              <div class="hero__stat-value">E2C</div>
+              <div class="hero__stat-label">Exit Strategy</div>
+            </div>
+          </div>
+          <div class="hero__actions">
+            <a href="#inquiry" class="btn btn--primary">
+              Begin Inquiry
+              <span class="btn__arrow">→</span>
+            </a>
+            <a href="#peaks" class="btn btn--secondary"> Explore Peaks </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pinnacle Peaks Grid -->
+      <section class="section section--dark" id="peaks">
+        <div class="container">
+          <div class="section__header">
+            <span class="section__eyebrow">Investment Theses</span>
+            <h2 class="section__title">The Six Pinnacle Peaks</h2>
+            <p class="section__description">
+              Each Peak represents a $600MM allocation targeting specific
+              technology verticals with natural cooperative conversion pathways.
+            </p>
+          </div>
+
+          <div class="peaks-grid">
+            <a href="/peaks/fulmina.html" class="peak-card peak-card--fulmina">
+              <div class="peak-card__icon">⚡</div>
+              <h3 class="peak-card__name">Fulmina</h3>
+              <p class="peak-card__focus">Energy Infrastructure</p>
+              <p class="peak-card__description">
+                Autonomous inspection, radiation-hardened robotics, grid
+                resilience. Leveraging 900+ electric cooperatives serving 42M
+                Americans.
+              </p>
+              <div class="peak-card__allocation">
+                <span class="peak-card__allocation-label">Allocation</span>
+                <span class="peak-card__allocation-value">$600MM</span>
+              </div>
+            </a>
+
+            <a
+              href="/peaks/horizonta.html"
+              class="peak-card peak-card--horizonta"
+            >
+              <div class="peak-card__icon">🚁</div>
+              <h3 class="peak-card__name">Horizonta</h3>
+              <p class="peak-card__focus">Autonomous Mobility</p>
+              <p class="peak-card__description">
+                eVTOL, vertiport infrastructure, autonomous marine. vPort
+                innovation with sovereignty-preserving immigration processing.
+              </p>
+              <div class="peak-card__allocation">
+                <span class="peak-card__allocation-label">Allocation</span>
+                <span class="peak-card__allocation-value">$600MM</span>
+              </div>
+            </a>
+
+            <a href="/peaks/rikolta.html" class="peak-card peak-card--rikolta">
+              <div class="peak-card__icon">🌾</div>
+              <h3 class="peak-card__name">Rikolta</h3>
+              <p class="peak-card__focus">Agriculture & Food</p>
+              <p class="peak-card__description">
+                Autonomous tractors, precision agriculture, cellular farming.
+                Farmer Data Sovereignty DACOs with 2,000+ existing ag
+                cooperatives.
+              </p>
+              <div class="peak-card__allocation">
+                <span class="peak-card__allocation-label">Allocation</span>
+                <span class="peak-card__allocation-value">$600MM</span>
+              </div>
+            </a>
+
+            <a href="/peaks/fajruja.html" class="peak-card peak-card--fajruja">
+              <div class="peak-card__icon">🏗️</div>
+              <h3 class="peak-card__name">Fajruja</h3>
+              <p class="peak-card__focus">Construction & Housing</p>
+              <p class="peak-card__description">
+                Construction robotics, 3D printing, modular housing. Dual DACO
+                model: workers build cooperatives they may inhabit.
+              </p>
+              <div class="peak-card__allocation">
+                <span class="peak-card__allocation-label">Allocation</span>
+                <span class="peak-card__allocation-value">$600MM</span>
+              </div>
+            </a>
+
+            <a href="/peaks/vekiga.html" class="peak-card peak-card--vekiga">
+              <div class="peak-card__icon">💜</div>
+              <h3 class="peak-card__name">Vekiĝa</h3>
+              <p class="peak-card__focus">Longevity Science</p>
+              <p class="peak-card__description">
+                Senolytics, cellular reprogramming, biomarker monitoring.
+                Cyber-Mutual Healthcare DACOs as P2P alternative to insurance
+                extraction.
+              </p>
+              <div class="peak-card__allocation">
+                <span class="peak-card__allocation-label">Allocation</span>
+                <span class="peak-card__allocation-value">$600MM</span>
+              </div>
+            </a>
+
+            <a href="/peaks/kerna.html" class="peak-card peak-card--kerna">
+              <div class="peak-card__icon">🔐</div>
+              <h3 class="peak-card__name">Kerna</h3>
+              <p class="peak-card__focus">Privacy & Sovereign Compute</p>
+              <p class="peak-card__description">
+                FHE, confidential computing, decentralized identity. Foundation
+                layer for all Peaks. Litigation finance funds infrastructure.
+              </p>
+              <div class="peak-card__allocation">
+                <span class="peak-card__allocation-label">Allocation</span>
+                <span class="peak-card__allocation-value">$600MM</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- E2C Explainer -->
+      <section class="section">
+        <div class="container">
+          <div class="section__header">
+            <span class="section__eyebrow">Exit Strategy</span>
+            <h2 class="section__title">Exit-to-Cooperative (E2C)</h2>
+            <p class="section__description">
+              The only exit strategy. Portfolio companies transition to worker
+              and stakeholder ownership through DACO structures, operating
+              parallel to FIAT without interference.
+            </p>
+          </div>
+
+          <div class="e2c-visual">
+            <div class="e2c-step">
+              <div class="e2c-step__icon">💰</div>
+              <h4 class="e2c-step__title">Investment</h4>
+              <p class="e2c-step__description">
+                Seed/Pre-Seed via traditional equity
+              </p>
+            </div>
+            <span class="e2c-connector">→</span>
+            <div class="e2c-step">
+              <div class="e2c-step__icon">🏛️</div>
+              <h4 class="e2c-step__title">DACO Layer</h4>
+              <p class="e2c-step__description">
+                WY DAO LLC cooperative governance
+              </p>
+            </div>
+            <span class="e2c-connector">→</span>
+            <div class="e2c-step">
+              <div class="e2c-step__icon">🔄</div>
+              <h4 class="e2c-step__title">C3DEX</h4>
+              <p class="e2c-step__description">
+                Cross-Peak coordination marketplace
+              </p>
+            </div>
+            <span class="e2c-connector">→</span>
+            <div class="e2c-step">
+              <div class="e2c-step__icon">🤝</div>
+              <h4 class="e2c-step__title">Cooperative</h4>
+              <p class="e2c-step__description">
+                Full member ownership with exit
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Token Economics -->
+      <section class="section section--dark">
+        <div class="container">
+          <div class="section__header">
+            <span class="section__eyebrow">Token Architecture</span>
+            <h2 class="section__title">Coordinated Economics</h2>
+            <p class="section__description">
+              Four-token system on Cardano enabling transactions, governance,
+              membership conversion, and yield distribution.
+            </p>
+          </div>
+
+          <div class="token-flow">
+            <div class="token token--jlz">
+              <div class="token__symbol">JLZ</div>
+              <span class="token__name">Joules</span>
+              <span class="token__role">Stablecoin</span>
+            </div>
+            <span class="token-arrow">→</span>
+            <div class="token token--ppt">
+              <div class="token__symbol">PPT</div>
+              <span class="token__name">Plausible</span>
+              <span class="token__role">Governance</span>
+            </div>
+            <span class="token-arrow">→</span>
+            <div class="token token--comm">
+              <div class="token__symbol">COMM</div>
+              <span class="token__name">Commons</span>
+              <span class="token__role">Membership</span>
+            </div>
+            <span class="token-arrow">→</span>
+            <div class="token token--xpt">
+              <div class="token__symbol">XPT</div>
+              <span class="token__name">Experience</span>
+              <span class="token__role">Yield Rights</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Inquiry Form -->
+      <section class="inquiry-section" id="inquiry">
+        <div class="container">
+          <div class="inquiry-grid">
+            <div class="inquiry-info">
+              <h2 class="inquiry-info__title">Begin Your Inquiry</h2>
+              <p class="inquiry-info__description">
+                C3 Alliance investment opportunities are available to qualified
+                UHNW investors committed to sovereign infrastructure and
+                cooperative economics. Our team will respond within 48 hours
+                with next steps.
+              </p>
+              <div class="inquiry-info__contact">
+                <p class="inquiry-info__contact-label">Direct Contact</p>
+                <a
+                  href="mailto:invest@cosmiccommons.co"
+                  class="inquiry-info__contact-email"
+                >
+                  invest@cosmiccommons.co
+                </a>
+              </div>
+            </div>
+
+            <form class="inquiry-form" id="inquiry-form">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label form-label--required"
+                    >Full Name</label
+                  >
+                  <input
+                    type="text"
+                    name="name"
+                    class="form-input"
+                    placeholder="Your full name"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label form-label--required">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    class="form-input"
+                    placeholder="you@example.com"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Organization</label>
+                  <input
+                    type="text"
+                    name="organization"
+                    class="form-input"
+                    placeholder="Company or family office"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label form-label--required"
+                    >Primary Peak Interest</label
+                  >
+                  <select name="peak" class="form-select" required>
+                    <option value="">Select a Peak</option>
+                    <option value="fulmina">
+                      Fulmina — Energy Infrastructure
+                    </option>
+                    <option value="horizonta">
+                      Horizonta — Autonomous Mobility
+                    </option>
+                    <option value="rikolta">
+                      Rikolta — Agriculture & Food
+                    </option>
+                    <option value="fajruja">
+                      Fajruja — Construction & Housing
+                    </option>
+                    <option value="vekiga">Vekiĝa — Longevity Science</option>
+                    <option value="kerna">
+                      Kerna — Privacy & Sovereign Compute
+                    </option>
+                    <option value="all">All Peaks / Portfolio Approach</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Accredited Status</label>
+                  <select name="accredited_status" class="form-select">
+                    <option value="">Select status</option>
+                    <option value="qualified_purchaser">
+                      Qualified Purchaser
+                    </option>
+                    <option value="accredited_investor">
+                      Accredited Investor
+                    </option>
+                    <option value="family_office">Family Office</option>
+                    <option value="institutional">Institutional</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Investment Range</label>
+                  <select name="investment_range" class="form-select">
+                    <option value="">Select range</option>
+                    <option value="500k-1m">$500K – $1MM</option>
+                    <option value="1m-5m">$1MM – $5MM</option>
+                    <option value="5m-25m">$5MM – $25MM</option>
+                    <option value="25m+">$25MM+</option>
+                  </select>
+                </div>
+
+                <div class="form-group form-group--full">
+                  <label class="form-label">Message</label>
+                  <textarea
+                    name="message"
+                    class="form-textarea"
+                    placeholder="Tell us about your interest in cooperative economics and sovereign infrastructure..."
+                  ></textarea>
+                </div>
+
+                <div class="form-group form-group--full">
+                  <label class="form-label">How did you hear about us?</label>
+                  <input
+                    type="text"
+                    name="referral_source"
+                    class="form-input"
+                    placeholder="Referral, conference, publication, etc."
+                  />
+                </div>
+              </div>
+
+              <button type="submit" class="form-submit" id="submit-btn">
+                Submit Inquiry
+              </button>
+
+              <div class="form-status" id="form-status"></div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">C3 Alliance</span>
+          <span class="footer__tagline"
+            >Cosmic Commons Communities Alliance</span
+          >
+        </div>
+        <p class="footer__legal">
+          Investment opportunities described herein are available only to
+          qualified investors. Past performance does not guarantee future
+          results. E2C structures involve unique risks including extended time
+          horizons and cooperative governance transitions. This site does not
+          constitute an offer to sell or solicitation of an offer to buy any
+          securities.
+        </p>
+        <div class="footer__links">
+          <span class="footer__link">© 2026 C3 Alliance</span>
+          <span class="footer__link"
+            >Plausible Potentials Consulting DAO LLC</span
+          >
+          <a href="mailto:invest@cosmiccommons.co" class="footer__link"
+            >invest@cosmiccommons.co</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Form submission handler
+      const form = document.getElementById("inquiry-form");
+      const submitBtn = document.getElementById("submit-btn");
+      const formStatus = document.getElementById("form-status");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Submitting...";
+        formStatus.className = "form-status";
+        formStatus.style.display = "none";
+
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+          const response = await fetch("/api/inquiry", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            formStatus.className = "form-status form-status--success";
+            formStatus.textContent =
+              "Thank you for your inquiry. Our team will respond within 48 hours.";
+            form.reset();
+          } else {
+            throw new Error(result.error || "Submission failed");
+          }
+        } catch (error) {
+          formStatus.className = "form-status form-status--error";
+          formStatus.textContent =
+            error.message ||
+            "An error occurred. Please try again or contact us directly.";
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Submit Inquiry";
+        }
+      });
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
