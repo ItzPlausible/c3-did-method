@@ -1,0 +1,12 @@
+{
+  "name": "sbt-did-deployment",
+  "version": "1.0.0",
+  "description": "C3 Alliance SBT-DID Contract Deployment Tools",
+  "type": "module",
+  "scripts": {
+    "deploy": "node deploy.mjs"
+  },
+  "dependencies": {
+    "@meshsdk/core": "^1.6.0"
+  }
+}

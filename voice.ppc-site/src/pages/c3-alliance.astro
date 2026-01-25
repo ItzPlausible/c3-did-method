@@ -1,0 +1,183 @@
+---
+import PageLayout from '@/layouts/PageLayout.astro';
+---
+
+<PageLayout title="C3 Alliance" description="The Cosmic Commons Communities Alliance - Cooperative infrastructure for sovereign communities">
+  <section class="c3">
+    <div class="c3__hero">
+      <div class="c3__hero-container container">
+        <span class="c3__eyebrow">Cosmic Commons Communities</span>
+        <h1 class="c3__title text-balance">C3 Alliance</h1>
+        <p class="c3__subtitle">
+          Cooperative infrastructure for sovereign communities
+        </p>
+      </div>
+    </div>
+    
+    <div class="c3__content container container--prose">
+      <div class="prose">
+        <h2>What is the C3 Alliance?</h2>
+        <p>
+          The <strong>C3 Alliance</strong> (Cosmic Commons Communities Alliance) is a network 
+          of cooperatives, community land trusts, and sovereign communities building shared 
+          infrastructure for the cooperative economy.
+        </p>
+        <p>
+          We believe in coordination without coercion, value creation without extraction, 
+          and governance without centralized authority. The Alliance provides the technical, 
+          legal, and social infrastructure to make this possible.
+        </p>
+        
+        <h2>Core Infrastructure</h2>
+        
+        <h3>Governance Frameworks</h3>
+        <p>
+          Tokenized governance systems that enable transparent, participatory decision-making 
+          across distributed communities. Our governance infrastructure includes:
+        </p>
+        <ul>
+          <li>SBT-DID (Soulbound Token Decentralized Identity) for member verification</li>
+          <li>COMM tokens for governance participation</li>
+          <li>On-chain proposal and voting mechanisms</li>
+          <li>Treasury management for shared resources</li>
+        </ul>
+        
+        <h3>N3 Commons Nodes</h3>
+        <p>
+          Physical infrastructure nodes that combine:
+        </p>
+        <ul>
+          <li>Renewable energy production (solar, wind)</li>
+          <li>Sustainable food systems (permaculture, aquaponics)</li>
+          <li>Community gathering and workspace</li>
+          <li>Local economic infrastructure</li>
+        </ul>
+        <p>
+          The first N3 Commons node is currently being developed in Hardin County, Texas.
+        </p>
+        
+        <h3>Shared Technology</h3>
+        <p>
+          Open-source infrastructure for cooperative operations:
+        </p>
+        <ul>
+          <li>Blockchain-based accounting and treasury</li>
+          <li>Member coordination tools</li>
+          <li>Federated communication systems</li>
+          <li>Shared knowledge repositories</li>
+        </ul>
+        
+        <h2>Exit-to-Cooperative (E2C)</h2>
+        <p>
+          One of our key initiatives is helping traditional businesses convert to 
+          cooperative ownership structures. E2C provides:
+        </p>
+        <ul>
+          <li>Legal framework templates</li>
+          <li>Tokenomics design for ownership transition</li>
+          <li>Governance migration strategies</li>
+          <li>Ongoing support and integration into the Alliance</li>
+        </ul>
+        
+        <h2>Tokenomics</h2>
+        <p>
+          The C3 Alliance operates on a multi-token system:
+        </p>
+        <ul>
+          <li><strong>COMM</strong> - Governance token for Alliance-wide decisions</li>
+          <li><strong>PPT</strong> - Plausible Potentials service credits</li>
+          <li><strong>XPT</strong> - Experience tokens tracking contribution and reputation</li>
+          <li><strong>Member-specific tokens</strong> - For local cooperative governance</li>
+        </ul>
+        
+        <h2>Membership</h2>
+        <p>
+          The C3 Alliance is open to:
+        </p>
+        <ul>
+          <li>Existing cooperatives seeking shared infrastructure</li>
+          <li>Communities exploring cooperative models</li>
+          <li>Businesses considering Exit-to-Cooperative transition</li>
+          <li>Individuals aligned with cooperative principles</li>
+        </ul>
+        <p>
+          For membership inquiries, contact us at{' '}
+          <a href="mailto:alliance@c3alliance.org">alliance@c3alliance.org</a>
+        </p>
+        
+        <h2>Learn More</h2>
+        <p>
+          Stay updated on C3 Alliance developments through this Voice publication. 
+          Key topics we cover:
+        </p>
+        <ul>
+          <li><a href="/posts/category/c3-alliance">C3 Alliance Updates</a></li>
+          <li><a href="/posts/category/cooperative-economics">Cooperative Economics</a></li>
+          <li><a href="/posts/category/blockchain-governance">Blockchain Governance</a></li>
+          <li><a href="/posts/category/sovereignty">Sovereignty</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .c3__hero {
+    background: linear-gradient(
+      135deg,
+      var(--purple-dark) 0%,
+      var(--purple) 50%,
+      var(--royal-blue-dark) 100%
+    );
+    color: var(--white);
+    padding: var(--space-20) 0 var(--space-16);
+    text-align: center;
+  }
+  
+  .c3__eyebrow {
+    display: inline-block;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-bottom: var(--space-4);
+  }
+  
+  .c3__title {
+    font-size: var(--text-5xl);
+    margin-bottom: var(--space-4);
+    color: var(--white);
+  }
+  
+  .c3__subtitle {
+    font-size: var(--text-xl);
+    color: var(--gray-200);
+    max-width: 50ch;
+    margin: 0 auto;
+  }
+  
+  .c3__content {
+    padding: var(--space-16) 0 var(--space-24);
+  }
+  
+  .c3__content h2 {
+    color: var(--royal-blue);
+    margin-top: var(--space-12);
+  }
+  
+  .c3__content h3 {
+    color: var(--purple);
+    margin-top: var(--space-8);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .c3__content h2 {
+      color: var(--gold);
+    }
+    
+    .c3__content h3 {
+      color: var(--gold-light);
+    }
+  }
+</style>

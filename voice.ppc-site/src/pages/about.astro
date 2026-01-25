@@ -1,0 +1,149 @@
+---
+import PageLayout from '@/layouts/PageLayout.astro';
+---
+
+<PageLayout title="About" description="About Voice and Plausible Potentials Consulting DAO">
+  <section class="about">
+    <div class="about__container container container--prose">
+      <header class="about__header">
+        <h1 class="about__title">About Voice</h1>
+        <p class="about__subtitle">Sovereignty-first publishing for the cooperative economy</p>
+      </header>
+      
+      <div class="about__content prose">
+        <p class="about__lead">
+          Voice is the publishing platform for <strong>Plausible Potentials Consulting DAO</strong> 
+          and the <strong>C3 Alliance</strong> (Cosmic Commons Communities Alliance).
+        </p>
+        
+        <h2>Our Mission</h2>
+        <p>
+          We believe in building alternatives to extractive capitalism through cooperative 
+          structures, blockchain governance, and sovereignty-first design. Voice exists to 
+          share the insights, frameworks, and progress of this work with anyone interested 
+          in cooperative futures.
+        </p>
+        
+        <h2>What is Plausible Potentials?</h2>
+        <p>
+          Plausible Potentials Consulting DAO LLC is a blockchain technology development 
+          agency focused on cooperative economics infrastructure. We specialize in:
+        </p>
+        <ul>
+          <li>Exit-to-Cooperative (E2C) business conversion strategies</li>
+          <li>Tokenomics design for cooperative governance</li>
+          <li>Smart contract development (Cardano, Midnight Network, Cosmos)</li>
+          <li>Community Land Trust infrastructure</li>
+          <li>Sovereignty-first system architecture</li>
+        </ul>
+        
+        <h2>What is the C3 Alliance?</h2>
+        <p>
+          The C3 Alliance (Cosmic Commons Communities Alliance) is a network of 
+          cooperatives, community land trusts, and sovereign communities building 
+          shared infrastructure for the cooperative economy. The Alliance provides:
+        </p>
+        <ul>
+          <li>Governance frameworks for decentralized cooperation</li>
+          <li>Shared technology infrastructure (blockchain, identity, coordination tools)</li>
+          <li>Physical nodes (N3 Commons) combining renewable energy, food production, and community space</li>
+          <li>Educational resources and community support</li>
+        </ul>
+        
+        <h2>Cyber-Mutualism</h2>
+        <p>
+          Our work is grounded in <strong>Cyber-Mutualism</strong> — a synthesis of 
+          Spinozan philosophy, mutualist economics, and blockchain technology. This 
+          framework guides our approach to:
+        </p>
+        <ul>
+          <li>Coordination without coercion</li>
+          <li>Value creation without extraction</li>
+          <li>Governance without centralized authority</li>
+          <li>Technology as a tool for liberation, not control</li>
+        </ul>
+        
+        <h2>Contact</h2>
+        <p>
+          For inquiries about Plausible Potentials services or C3 Alliance membership:
+        </p>
+        <ul>
+          <li>Email: <a href="mailto:contact@plausiblepotentials.com">contact@plausiblepotentials.com</a></li>
+          <li>Website: <a href="https://plausiblepotentials.com" target="_blank" rel="noopener">plausiblepotentials.com</a></li>
+        </ul>
+      </div>
+      
+      <footer class="about__footer">
+        <div class="about__signature">
+          <span class="about__signature-name">Plausible Potentials</span>
+          <span class="about__signature-title">Consulting DAO LLC</span>
+        </div>
+      </footer>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .about {
+    padding: var(--space-16) 0 var(--space-24);
+  }
+  
+  .about__header {
+    margin-bottom: var(--space-12);
+    padding-bottom: var(--space-8);
+    border-bottom: 1px solid var(--color-border);
+  }
+  
+  .about__title {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-3);
+  }
+  
+  .about__subtitle {
+    font-size: var(--text-xl);
+    color: var(--color-text-muted);
+  }
+  
+  .about__lead {
+    font-size: var(--text-xl);
+    line-height: 1.6;
+  }
+  
+  .about__content {
+    margin-bottom: var(--space-16);
+  }
+  
+  .about__content h2 {
+    color: var(--royal-blue);
+    margin-top: var(--space-12);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .about__content h2 {
+      color: var(--gold);
+    }
+  }
+  
+  .about__footer {
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border);
+  }
+  
+  .about__signature {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+  
+  .about__signature-name {
+    font-family: 'Great Vibes', cursive;
+    font-size: var(--text-3xl);
+    color: var(--gold);
+  }
+  
+  .about__signature-title {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    letter-spacing: 0.05em;
+  }
+</style>

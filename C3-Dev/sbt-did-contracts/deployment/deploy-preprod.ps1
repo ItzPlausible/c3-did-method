@@ -34,8 +34,13 @@ Write-Host "Applying reference_params.json to sbt_did_reference.reference.spend.
 
 Set-Location $ProjectRoot
 
-# Apply params and capture output
-$refOutput = aiken blueprint apply -v "sbt_did_reference.reference.spend" -p "$DeploymentDir\reference_params.json" 2>&1
+# Apply params - correct syntax: aiken blueprint apply -v <validator> <params_file>
+aiken blueprint apply -v "sbt_did_reference.reference.spend" "$DeploymentDir\reference_params.json"
+
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "ERROR: Failed to apply parameters to reference validator" -ForegroundColor Red
+    exit 1
+}
 
 # Extract new hash from the updated plutus.json
 $plutusJson = Get-Content "$ProjectRoot\plutus.json" | ConvertFrom-Json
@@ -79,7 +84,12 @@ Write-Host ""
 Write-Host "=== Step 4: Apply Parameters to Mint Policy ===" -ForegroundColor Yellow
 Write-Host "Applying mint_params.json to sbt_did_mint.mint.mint..."
 
-$mintOutput = aiken blueprint apply -v "sbt_did_mint.mint.mint" -p "$DeploymentDir\mint_params.json" 2>&1
+aiken blueprint apply -v "sbt_did_mint.mint.mint" "$DeploymentDir\mint_params.json"
+
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "ERROR: Failed to apply parameters to mint policy" -ForegroundColor Red
+    exit 1
+}
 
 # Get final mint policy hash (this is the Policy ID)
 $plutusJson = Get-Content "$ProjectRoot\plutus.json" | ConvertFrom-Json
@@ -92,20 +102,86 @@ Write-Host "Mint Policy ID: $policyId" -ForegroundColor Green
 Write-Host ""
 Write-Host "=== Step 5: Generate Script Addresses ===" -ForegroundColor Yellow
 
-# PreProd network ID prefix for script addresses
-# addr_test1w... for script addresses (payment credential only)
-# We need to compute bech32 addresses from script hashes
+# Python script to generate bech32 addresses
+$pythonScript = @"
+import hashlib
 
-# For now, output the raw hashes - full address generation requires additional tooling
+CHARSET = "qpzry9x8gf2tvdw0s3jn54khce6mua7l"
+
+def bech32_polymod(values):
+    GEN = [0x3b6a57b2, 0x26508e6d, 0x1ea119fa, 0x3d4233dd, 0x2a1462b3]
+    chk = 1
+    for v in values:
+        b = chk >> 25
+        chk = ((chk & 0x1ffffff) << 5) ^ v
+        for i in range(5):
+            chk ^= GEN[i] if ((b >> i) & 1) else 0
+    return chk
+
+def bech32_hrp_expand(hrp):
+    return [ord(x) >> 5 for x in hrp] + [0] + [ord(x) & 31 for x in hrp]
+
+def bech32_create_checksum(hrp, data):
+    values = bech32_hrp_expand(hrp) + data
+    polymod = bech32_polymod(values + [0, 0, 0, 0, 0, 0]) ^ 1
+    return [(polymod >> 5 * (5 - i)) & 31 for i in range(6)]
+
+def bech32_encode(hrp, data):
+    combined = data + bech32_create_checksum(hrp, data)
+    return hrp + '1' + ''.join([CHARSET[d] for d in combined])
+
+def convertbits(data, frombits, tobits, pad=True):
+    acc = 0
+    bits = 0
+    ret = []
+    maxv = (1 << tobits) - 1
+    for value in data:
+        acc = (acc << frombits) | value
+        bits += frombits
+        while bits >= tobits:
+            bits -= tobits
+            ret.append((acc >> bits) & maxv)
+    if pad:
+        if bits:
+            ret.append((acc << (tobits - bits)) & maxv)
+    return ret
+
+def script_hash_to_address(script_hash_hex, network="preprod"):
+    script_hash_bytes = bytes.fromhex(script_hash_hex)
+    header = 0x70
+    hrp = "addr_test"
+    addr_bytes = bytes([header]) + script_hash_bytes
+    data = convertbits(list(addr_bytes), 8, 5)
+    return bech32_encode(hrp, data)
+
+lock_hash = "$lockScriptHash"
+ref_hash = "$referenceValidatorHash"
+
+print(f"LOCK_ADDR={script_hash_to_address(lock_hash)}")
+print(f"REF_ADDR={script_hash_to_address(ref_hash)}")
+"@
+
+$pythonScript | python | ForEach-Object {
+    if ($_ -match "^LOCK_ADDR=(.+)$") { $lockAddress = $matches[1] }
+    if ($_ -match "^REF_ADDR=(.+)$") { $refAddress = $matches[1] }
+}
+
 Write-Host ""
 Write-Host "=== DEPLOYMENT SUMMARY ===" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "Network: PreProd" -ForegroundColor White
 Write-Host ""
-Write-Host "Script Hashes:" -ForegroundColor Yellow
-Write-Host "  Lock Script:        $lockScriptHash"
-Write-Host "  Reference Validator: $referenceValidatorHash"
-Write-Host "  Mint Policy (ID):   $policyId"
+Write-Host "Script Hashes & Addresses:" -ForegroundColor Yellow
+Write-Host "  Lock Script:"
+Write-Host "    Hash:    $lockScriptHash"
+Write-Host "    Address: $lockAddress"
+Write-Host ""
+Write-Host "  Reference Validator:"
+Write-Host "    Hash:    $referenceValidatorHash"
+Write-Host "    Address: $refAddress"
+Write-Host ""
+Write-Host "  Mint Policy:"
+Write-Host "    Policy ID: $policyId" -ForegroundColor Magenta
 Write-Host ""
 Write-Host "Admin Configuration (3-of-5):" -ForegroundColor Yellow
 Write-Host "  Threshold: 3"
@@ -123,10 +199,12 @@ $summary = @{
     scripts = @{
         lock = @{
             hash = $lockScriptHash
+            address = $lockAddress
             parameterized = $false
         }
         reference = @{
             hash = $referenceValidatorHash
+            address = $refAddress
             parameterized = $true
         }
         mint = @{

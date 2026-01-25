@@ -1,0 +1,243 @@
+---
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '' } = Astro.props;
+
+const navItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Posts', href: '/posts' },
+  { label: 'About', href: '/about' },
+  { label: 'C3 Alliance', href: '/c3-alliance' },
+];
+---
+
+<header class="header">
+  <div class="header__container container">
+    <a href="/" class="header__logo" aria-label="Voice - Home">
+      <div class="header__logo-mark">
+        <div class="logo-crest">
+          <div class="crest-field crest-field--crimson"></div>
+          <div class="crest-field crest-field--blue"></div>
+          <div class="crest-field crest-field--purple"></div>
+        </div>
+      </div>
+      <div class="header__logo-text">
+        <span class="header__logo-title">Voice</span>
+        <span class="header__logo-subtitle">Plausible Potentials</span>
+      </div>
+    </a>
+    
+    <nav class="header__nav" aria-label="Main navigation">
+      <ul class="header__nav-list">
+        {navItems.map((item) => (
+          <li class="header__nav-item">
+            <a
+              href={item.href}
+              class:list={[
+                'header__nav-link',
+                { 'header__nav-link--active': currentPath === item.href }
+              ]}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    
+    <button class="header__mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span class="header__mobile-toggle-bar"></span>
+      <span class="header__mobile-toggle-bar"></span>
+      <span class="header__mobile-toggle-bar"></span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    backdrop-filter: blur(12px);
+    background: rgba(254, 254, 254, 0.9);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .header {
+      background: rgba(42, 39, 36, 0.9);
+    }
+  }
+  
+  .header__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4.5rem;
+  }
+  
+  .header__logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .header__logo-mark {
+    width: 2.5rem;
+    height: 2.5rem;
+    position: relative;
+  }
+  
+  .logo-crest {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 2px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    box-shadow: 
+      0 0 0 2px var(--gold),
+      var(--shadow-md);
+  }
+  
+  .crest-field {
+    transition: transform var(--transition-fast);
+  }
+  
+  .crest-field--crimson {
+    background: var(--crimson);
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+  
+  .crest-field--blue {
+    background: var(--royal-blue);
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
+  }
+  
+  .crest-field--purple {
+    background: var(--purple);
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+  }
+  
+  .header__logo:hover .crest-field {
+    transform: scale(1.05);
+  }
+  
+  .header__logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+  
+  .header__logo-title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--royal-blue);
+    letter-spacing: -0.02em;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .header__logo-title {
+      color: var(--gold);
+    }
+  }
+  
+  .header__logo-subtitle {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  
+  .header__nav-list {
+    display: flex;
+    gap: var(--space-1);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .header__nav-link {
+    display: block;
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: 
+      color var(--transition-fast),
+      background-color var(--transition-fast);
+  }
+  
+  .header__nav-link:hover {
+    color: var(--color-text);
+    background-color: var(--gray-100);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .header__nav-link:hover {
+      background-color: var(--gray-600);
+    }
+  }
+  
+  .header__nav-link--active {
+    color: var(--color-primary);
+    background-color: rgba(155, 27, 48, 0.08);
+  }
+  
+  .header__mobile-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: var(--space-2);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .header__mobile-toggle-bar {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--color-text);
+    border-radius: 1px;
+    transition: transform var(--transition-fast);
+  }
+  
+  @media (max-width: 768px) {
+    .header__nav {
+      display: none;
+    }
+    
+    .header__mobile-toggle {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  // Mobile menu toggle
+  const toggle = document.querySelector('.header__mobile-toggle');
+  const nav = document.querySelector('.header__nav');
+  
+  toggle?.addEventListener('click', () => {
+    const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', (!isExpanded).toString());
+    nav?.classList.toggle('header__nav--open');
+  });
+</script>

@@ -1,0 +1,249 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="footer__container container">
+    <div class="footer__main">
+      <div class="footer__brand">
+        <div class="footer__logo">
+          <div class="logo-crest logo-crest--small">
+            <div class="crest-field crest-field--crimson"></div>
+            <div class="crest-field crest-field--blue"></div>
+            <div class="crest-field crest-field--purple"></div>
+          </div>
+        </div>
+        <div class="footer__brand-text">
+          <span class="footer__signature">Plausible Potentials</span>
+          <span class="footer__tagline">Consulting DAO LLC</span>
+        </div>
+      </div>
+      
+      <nav class="footer__nav">
+        <div class="footer__nav-group">
+          <h4 class="footer__nav-title">Content</h4>
+          <ul class="footer__nav-list">
+            <li><a href="/posts">All Posts</a></li>
+            <li><a href="/posts/category/c3-alliance">C3 Alliance</a></li>
+            <li><a href="/posts/category/cyber-mutualism">Cyber-Mutualism</a></li>
+            <li><a href="/posts/category/sovereignty">Sovereignty</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer__nav-group">
+          <h4 class="footer__nav-title">C3 Alliance</h4>
+          <ul class="footer__nav-list">
+            <li><a href="/c3-alliance">About C3</a></li>
+            <li><a href="https://c3alliance.org" target="_blank" rel="noopener">C3 Alliance</a></li>
+            <li><a href="/rss.xml">RSS Feed</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer__nav-group">
+          <h4 class="footer__nav-title">Connect</h4>
+          <ul class="footer__nav-list">
+            <li><a href="https://plausiblepotentials.com" target="_blank" rel="noopener">Main Site</a></li>
+            <li><a href="mailto:contact@plausiblepotentials.com">Contact</a></li>
+            <li><a href="https://github.com/plausiblepotentials" target="_blank" rel="noopener">GitHub</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    
+    <div class="footer__bottom">
+      <p class="footer__copyright">
+        © {currentYear} Plausible Potentials Consulting DAO LLC. 
+        <span class="footer__rights">Sovereignty-first.</span>
+      </p>
+      <p class="footer__powered">
+        Powered by <a href="https://astro.build" target="_blank" rel="noopener">Astro</a> & 
+        <a href="https://cloudflare.com" target="_blank" rel="noopener">Cloudflare</a>
+      </p>
+    </div>
+  </div>
+  
+  <div class="footer__accent"></div>
+</footer>
+
+<style>
+  .footer {
+    margin-top: auto;
+    background: var(--gray-800);
+    color: var(--gray-300);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .footer__accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(
+      90deg,
+      var(--crimson) 0%,
+      var(--crimson) 33%,
+      var(--royal-blue) 33%,
+      var(--royal-blue) 66%,
+      var(--purple) 66%,
+      var(--purple) 100%
+    );
+  }
+  
+  .footer__container {
+    padding-top: var(--space-16);
+    padding-bottom: var(--space-8);
+  }
+  
+  .footer__main {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--space-12);
+    padding-bottom: var(--space-12);
+    border-bottom: 1px solid var(--gray-700);
+  }
+  
+  @media (max-width: 768px) {
+    .footer__main {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+  }
+  
+  .footer__brand {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+  
+  .logo-crest--small {
+    width: 3rem;
+    height: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 2px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    box-shadow: 0 0 0 2px var(--gold);
+    flex-shrink: 0;
+  }
+  
+  .crest-field--crimson {
+    background: var(--crimson);
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+  
+  .crest-field--blue {
+    background: var(--royal-blue);
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
+  }
+  
+  .crest-field--purple {
+    background: var(--purple);
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+  }
+  
+  .footer__brand-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+  
+  .footer__signature {
+    font-family: 'Great Vibes', cursive;
+    font-size: var(--text-2xl);
+    color: var(--gold);
+    line-height: 1;
+  }
+  
+  .footer__tagline {
+    font-size: var(--text-sm);
+    color: var(--gray-400);
+    letter-spacing: 0.05em;
+  }
+  
+  .footer__nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
+  }
+  
+  @media (max-width: 640px) {
+    .footer__nav {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  .footer__nav-title {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--gray-100);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: var(--space-4);
+  }
+  
+  .footer__nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  
+  .footer__nav-list a {
+    font-size: var(--text-sm);
+    color: var(--gray-400);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+  
+  .footer__nav-list a:hover {
+    color: var(--gold);
+  }
+  
+  .footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--space-8);
+    font-size: var(--text-sm);
+  }
+  
+  @media (max-width: 640px) {
+    .footer__bottom {
+      flex-direction: column;
+      gap: var(--space-4);
+      text-align: center;
+    }
+  }
+  
+  .footer__copyright {
+    color: var(--gray-500);
+  }
+  
+  .footer__rights {
+    color: var(--gold);
+  }
+  
+  .footer__powered {
+    color: var(--gray-500);
+  }
+  
+  .footer__powered a {
+    color: var(--gray-400);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+  
+  .footer__powered a:hover {
+    color: var(--gold);
+  }
+</style>

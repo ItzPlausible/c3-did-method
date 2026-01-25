@@ -1,0 +1,418 @@
+---
+import PageLayout from '@/layouts/PageLayout.astro';
+import PostCard from '@/components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+// Get all posts, sorted by date
+const posts = (await getCollection('posts'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const featuredPost = posts[0];
+const recentPosts = posts.slice(1, 7);
+---
+
+<PageLayout title="Home" description="Sovereignty-first insights from Plausible Potentials Consulting DAO">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero__container container">
+      <div class="hero__content">
+        <span class="hero__eyebrow">Voice</span>
+        <h1 class="hero__title text-balance">
+          Sovereignty-first insights for the 
+          <span class="hero__title-accent">cooperative economy</span>
+        </h1>
+        <p class="hero__description">
+          Exploring cyber-mutualism, blockchain governance, and the future of 
+          decentralized cooperation. From Plausible Potentials and the C3 Alliance.
+        </p>
+        <div class="hero__actions">
+          <a href="/posts" class="hero__cta hero__cta--primary">
+            Read Latest
+          </a>
+          <a href="/about" class="hero__cta hero__cta--secondary">
+            About Voice
+          </a>
+        </div>
+      </div>
+      
+      <div class="hero__visual">
+        <div class="hero__crest">
+          <div class="crest-large">
+            <div class="crest-field crest-field--crimson"></div>
+            <div class="crest-field crest-field--blue"></div>
+            <div class="crest-field crest-field--purple"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="hero__accent"></div>
+  </section>
+  
+  <!-- Featured Post -->
+  {featuredPost && (
+    <section class="featured">
+      <div class="featured__container container">
+        <div class="featured__header">
+          <h2 class="featured__title">Latest</h2>
+          <div class="featured__line"></div>
+        </div>
+        
+        <PostCard
+          title={featuredPost.data.title}
+          description={featuredPost.data.description}
+          pubDate={featuredPost.data.pubDate}
+          heroImage={featuredPost.data.heroImage}
+          slug={featuredPost.slug}
+          category={featuredPost.data.category}
+          featured={true}
+        />
+      </div>
+    </section>
+  )}
+  
+  <!-- Recent Posts -->
+  {recentPosts.length > 0 && (
+    <section class="recent">
+      <div class="recent__container container">
+        <div class="recent__header">
+          <h2 class="recent__title">Recent Posts</h2>
+          <a href="/posts" class="recent__link">View all →</a>
+        </div>
+        
+        <div class="recent__grid">
+          {recentPosts.map((post) => (
+            <PostCard
+              title={post.data.title}
+              description={post.data.description}
+              pubDate={post.data.pubDate}
+              heroImage={post.data.heroImage}
+              slug={post.slug}
+              category={post.data.category}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+  
+  <!-- Newsletter / CTA -->
+  <section class="cta-section">
+    <div class="cta-section__container container">
+      <div class="cta-section__content">
+        <h2 class="cta-section__title">Join the C3 Alliance</h2>
+        <p class="cta-section__description">
+          Building cooperative infrastructure for sovereign communities. 
+          Learn more about the Cosmic Commons Communities Alliance.
+        </p>
+        <a href="/c3-alliance" class="cta-section__button">
+          Learn More
+        </a>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  /* Hero */
+  .hero {
+    position: relative;
+    padding: var(--space-20) 0 var(--space-24);
+    background: linear-gradient(
+      135deg,
+      var(--royal-blue-dark) 0%,
+      var(--royal-blue) 50%,
+      var(--purple-dark) 100%
+    );
+    color: var(--white);
+    overflow: hidden;
+  }
+  
+  .hero__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+  
+  @media (max-width: 900px) {
+    .hero__container {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+  }
+  
+  .hero__eyebrow {
+    display: inline-block;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-bottom: var(--space-4);
+  }
+  
+  .hero__title {
+    font-size: var(--text-5xl);
+    line-height: 1.1;
+    margin-bottom: var(--space-6);
+    color: var(--white);
+  }
+  
+  .hero__title-accent {
+    color: var(--gold);
+  }
+  
+  .hero__description {
+    font-size: var(--text-lg);
+    color: var(--gray-200);
+    line-height: 1.7;
+    margin-bottom: var(--space-8);
+    max-width: 50ch;
+  }
+  
+  @media (max-width: 900px) {
+    .hero__description {
+      margin-inline: auto;
+    }
+  }
+  
+  .hero__actions {
+    display: flex;
+    gap: var(--space-4);
+  }
+  
+  @media (max-width: 900px) {
+    .hero__actions {
+      justify-content: center;
+    }
+  }
+  
+  .hero__cta {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-3) var(--space-6);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: 
+      background-color var(--transition-fast),
+      color var(--transition-fast),
+      transform var(--transition-fast);
+  }
+  
+  .hero__cta:hover {
+    transform: translateY(-2px);
+  }
+  
+  .hero__cta--primary {
+    background: var(--gold);
+    color: var(--gray-800);
+  }
+  
+  .hero__cta--primary:hover {
+    background: var(--gold-light);
+  }
+  
+  .hero__cta--secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .hero__cta--secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  .hero__visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  @media (max-width: 900px) {
+    .hero__visual {
+      display: none;
+    }
+  }
+  
+  .hero__crest {
+    position: relative;
+  }
+  
+  .crest-large {
+    width: 280px;
+    height: 280px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 6px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 
+      0 0 0 4px var(--gold),
+      0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .crest-field--crimson {
+    background: var(--crimson);
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+  
+  .crest-field--blue {
+    background: var(--royal-blue-light);
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
+  }
+  
+  .crest-field--purple {
+    background: var(--purple);
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .hero__accent {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gold);
+  }
+  
+  /* Featured */
+  .featured {
+    padding: var(--space-16) 0;
+  }
+  
+  .featured__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+  
+  .featured__title {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+  }
+  
+  .featured__line {
+    flex: 1;
+    height: 1px;
+    background: var(--color-border);
+  }
+  
+  /* Recent */
+  .recent {
+    padding: var(--space-8) 0 var(--space-20);
+  }
+  
+  .recent__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-8);
+  }
+  
+  .recent__title {
+    font-size: var(--text-2xl);
+  }
+  
+  .recent__link {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--crimson);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+  
+  .recent__link:hover {
+    color: var(--crimson-dark);
+  }
+  
+  .recent__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+  
+  @media (max-width: 900px) {
+    .recent__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .recent__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* CTA Section */
+  .cta-section {
+    padding: var(--space-20) 0;
+    background: var(--gray-100);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .cta-section {
+      background: var(--gray-700);
+    }
+  }
+  
+  .cta-section__content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .cta-section__title {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-4);
+    color: var(--royal-blue);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .cta-section__title {
+      color: var(--gold);
+    }
+  }
+  
+  .cta-section__description {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-8);
+  }
+  
+  .cta-section__button {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-4) var(--space-8);
+    font-weight: 600;
+    text-decoration: none;
+    background: var(--crimson);
+    color: var(--white);
+    border-radius: var(--radius-md);
+    transition: 
+      background-color var(--transition-fast),
+      transform var(--transition-fast);
+  }
+  
+  .cta-section__button:hover {
+    background: var(--crimson-dark);
+    transform: translateY(-2px);
+  }
+</style>
