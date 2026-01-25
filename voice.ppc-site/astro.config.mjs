@@ -10,6 +10,7 @@ export default defineConfig({
   output: "static",
   adapter: cloudflare({
     imageService: "cloudflare",
+    sessions: false,
   }),
   integrations: [mdx(), sitemap(), keystatic()],
 });
