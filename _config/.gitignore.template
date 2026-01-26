@@ -1,4 +1,5 @@
-# PPC Global .gitignore
+# PPC Global .gitignore Template
+# Copy to project root
 
 # Environment & secrets
 .env

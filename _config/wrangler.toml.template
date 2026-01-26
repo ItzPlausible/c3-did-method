@@ -1,0 +1,47 @@
+# PPC Wrangler Configuration Template
+# Copy to project root and customize
+
+name = "project-name"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+account_id = "d90dcd7b745fd3d5fe182073b3f2ad54"
+
+# ============================================
+# STATIC ASSETS (uncomment if needed)
+# ============================================
+# [site]
+# bucket = "./dist"
+
+# ============================================
+# D1 DATABASE (uncomment if needed)
+# ============================================
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "your-database-name"
+# database_id = "your-database-id"
+
+# ============================================
+# R2 BUCKET (uncomment if needed)
+# ============================================
+# [[r2_buckets]]
+# binding = "BUCKET"
+# bucket_name = "your-bucket-name"
+
+# ============================================
+# KV NAMESPACE (uncomment if needed)
+# ============================================
+# [[kv_namespaces]]
+# binding = "KV"
+# id = "your-kv-id"
+
+# ============================================
+# ENVIRONMENT VARIABLES
+# ============================================
+[vars]
+ENVIRONMENT = "production"
+
+# ============================================
+# SECRETS (set via `wrangler secret put`)
+# ============================================
+# - ANTHROPIC_API_KEY
+# - BLOCKFROST_API_KEY

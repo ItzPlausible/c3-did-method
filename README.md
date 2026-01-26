@@ -1,98 +1,78 @@
-# Voice | Plausible Potentials
+# Plausible Potentials Consulting (PPC)
 
-Sovereignty-first publishing platform for Plausible Potentials Consulting DAO and the C3 Alliance.
+**Master Repository for all PPC projects and assets**
 
-## Stack
+Managing Director: JW Barbre  
+Entity: Plausible Potentials Consulting DAO LLC  
+Location: Houston, Texas
 
-- **[Astro](https://astro.build)** - Content-focused web framework
-- **[Keystatic](https://keystatic.com)** - Git-based CMS
-- **[Cloudflare Pages](https://pages.cloudflare.com)** - Edge deployment
+---
 
-## Development
+## Directory Structure
+
+```
+D:\PPC\
+├── _config/          # Global configs, env templates, shared settings
+├── _docs/            # Master documentation
+│   ├── legal/        # Articles, bylaws, agreements
+│   ├── whitepapers/  # Technical & economic papers
+│   └── brand/        # Logos, crest, style guides
+│
+├── c3-alliance/      # C3 Alliance main site + infrastructure
+├── c3dex/            # Decentralized exchange project
+├── cocoa/            # Claude Cooperative Assistant (CoCoA)
+├── corp2coop/        # Exit-to-Cooperative platform
+├── cyber-mutualism/  # Cyber-mutualism educational site
+├── jwb/              # Personal JWB site
+│
+├── _archive/         # Deprecated projects, old versions
+└── _sandbox/         # Experiments, testing
+```
+
+---
+
+## Naming Conventions
+
+| Type | Convention | Example |
+|------|------------|---------|
+| Project folders | lowercase-hyphenated | `c3-alliance` |
+| Meta folders | underscore prefix | `_docs`, `_config` |
+| Config files | lowercase, dot notation | `wrangler.toml`, `.env.example` |
+| Documentation | UPPERCASE or Title Case | `README.md`, `CHANGELOG.md` |
+
+---
+
+## Cloudflare Resource Mapping
+
+| Project | Worker | D1 Database | R2 Bucket | KV Namespace |
+|---------|--------|-------------|-----------|--------------|
+| c3-alliance | `c3-alliance` | - | `c3-alliance-documents` | - |
+| c3dex | `c3dex` | - | - | `__c3dex-workers_sites_assets` |
+| cocoa | `cocoa-mvp` | `cocoa-mvp-db` | - | `cocoa-mvp-COCOA_SESSIONS` |
+| corp2coop | `corp2coop`, `corp2coop-api` | `corp2coop-leads` | `corp2coop-pdfs` | - |
+| cyber-mutualism | `cyber-mutualism` | - | - | - |
+| jwb | `jwb` | - | - | - |
+
+---
+
+## Blockfrost API (Cardano)
+
+- **Mainnet:** `mainnetyMcURINjP40kV05A2I5DaxiQKzpHId3Y`
+- **PreProd:** `preprodCU0fTLOVeFEfmoa95ESuVTAmHfmvLakS`
+
+---
+
+## Quick Commands
 
 ```bash
-# Install dependencies
-npm install
+# Deploy any project
+cd D:\PPC\[project-name]
+npx wrangler deploy
 
-# Start dev server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
+# Run local dev
+npx wrangler dev
 ```
-
-## Content Management
-
-Access the Keystatic admin UI at `/keystatic` when running locally or in development.
-
-### Creating Posts
-
-Posts are stored as MDX files in `src/content/posts/`. You can create them:
-
-1. Through the Keystatic UI at `/keystatic`
-2. Directly as `.mdx` files with frontmatter
-
-### Frontmatter Schema
-
-```yaml
----
-title: "Post Title"
-description: "Brief description"
-pubDate: 2026-01-23
-updatedDate: 2026-01-24 # optional
-heroImage: "/images/posts/my-image.jpg" # optional
-author: "JW"
-category: "c3-alliance" # see categories below
-tags: ["tag1", "tag2"]
-draft: false
----
-```
-
-### Categories
-
-- `c3-alliance`
-- `cyber-mutualism`
-- `cooperative-economics`
-- `blockchain-governance`
-- `sovereignty`
-- `technical`
-- `announcements`
-
-## Deployment
-
-This site deploys automatically to Cloudflare Pages via GitHub integration.
-
-### Manual Deployment
-
-```bash
-npm run build
-npx wrangler pages deploy dist
-```
-
-## Design System
-
-The site uses the **Barbre family crest palette**:
-
-| Color | Hex | Usage |
-|-------|-----|-------|
-| Crimson | `#9B1B30` | Primary accent |
-| Royal Blue | `#1E3A5F` | Secondary, headings |
-| Purple | `#4A1942` | Accent alt |
-| Gold | `#C9A227` | Highlights, links |
-
-### Fonts
-
-- **Playfair Display** - Headlines
-- **Source Sans 3** - Body text
-- **Great Vibes** - Signature/brand elements
-
-## License
-
-Content © Plausible Potentials Consulting DAO LLC. All rights reserved.
 
 ---
 
-*Sovereignty-first.*
+*Last updated: 2026-01-26*
