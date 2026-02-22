@@ -1,0 +1,80 @@
+%% C3 DID Method — Resolution Protocol Sequence Diagram
+%% Version: 0.4 | Date: 2026-02-08
+%% Covers both QR Scan and Programmatic resolution flows
+
+sequenceDiagram
+    participant Scanner as 📱 Scanner / Client
+    participant CoCoA as 🤖 CoCoA Resolver
+    participant Blockfrost as ⛓️ Blockfrost API
+    participant Cardano as 🏗️ Cardano L1
+    participant IPFS as 📦 IPFS Gateway
+    participant Midnight as 🔒 Midnight Network
+    participant Cache as 💾 Proof Cache
+
+    rect rgb(240, 248, 255)
+        Note over Scanner, CoCoA: Phase 1: DID Input & Parsing
+        Scanner->>CoCoA: Scan QR / Submit DID: did:c3:SEID:@T<hash>
+        activate CoCoA
+        CoCoA->>CoCoA: Parse DID string
+        Note right of CoCoA: Extract:<br/>SEID = "7xK9mP2v..."<br/>Prefix = "T" → Tool<br/>EntityHash = "m3N4p5Q6..."
+    end
+
+    rect rgb(245, 255, 245)
+        Note over CoCoA, Cardano: Phase 2: On-Chain Resolution
+        CoCoA->>Blockfrost: GET /assets/{C3PolicyID}.T{hash}
+        activate Blockfrost
+        Blockfrost->>Cardano: Query UTxO set for asset
+        Cardano-->>Blockfrost: Entity UTxO + CIP-68 datum
+        Blockfrost-->>CoCoA: Asset metadata + datum payload
+        deactivate Blockfrost
+
+        CoCoA->>CoCoA: Decode CIP-68 datum → entity type, stewardship, lifecycle
+        CoCoA->>CoCoA: Extract IPFS CID from datum provenance field
+    end
+
+    rect rgb(255, 248, 240)
+        Note over CoCoA, IPFS: Phase 3: Provenance & Credential Verification
+        par Provenance Fetch
+            CoCoA->>IPFS: GET ipfs://{provenanceCID}
+            IPFS-->>CoCoA: Provenance document (JSON)
+        and StatusList2021 Verification
+            loop For each faction credential
+                CoCoA->>IPFS: GET ipfs://{statusListCID}
+                IPFS-->>CoCoA: StatusList2021 bitstring
+                CoCoA->>CoCoA: Check bit at statusListIndex
+                Note right of CoCoA: bit=0 → active<br/>bit=1 → revoked
+            end
+        end
+    end
+
+    rect rgb(248, 240, 255)
+        Note over CoCoA, Midnight: Phase 4: Selective Disclosure (Authorization-Dependent)
+        CoCoA->>CoCoA: Determine requester authorization tier (0-4)
+
+        alt Tier 0 — Public (no proof needed)
+            CoCoA->>CoCoA: Filter to public fields only
+        else Tier 1+ — Requires ZK Verification
+            CoCoA->>Cache: Check for cached proof
+            alt Cache hit (valid TTL + state commitment)
+                Cache-->>CoCoA: Cached proof attestation
+            else Cache miss / stale
+                CoCoA->>Midnight: Submit proof verification request
+                activate Midnight
+                Midnight->>Midnight: Verify ZK circuit (ppt_balance / faction_membership / etc.)
+                Midnight-->>CoCoA: Proof result + authorized field set
+                deactivate Midnight
+                CoCoA->>Cache: Store proof with TTL
+            end
+            CoCoA->>CoCoA: Merge authorized fields into response
+        end
+    end
+
+    rect rgb(255, 255, 240)
+        Note over CoCoA, Scanner: Phase 5: Document Assembly & Response
+        CoCoA->>CoCoA: Resolve SEID → steward display name (alsoKnownAs / CoCoA cache)
+        CoCoA->>CoCoA: Assemble DID Document
+        Note right of CoCoA: Merge:<br/>• On-chain datum<br/>• IPFS provenance<br/>• Verified credentials<br/>• Authorized fields<br/>• Display aliases
+        CoCoA-->>Scanner: DID Resolution Result
+        deactivate CoCoA
+        Note over Scanner: { didDocument, didResolutionMetadata, didDocumentMetadata }
+    end

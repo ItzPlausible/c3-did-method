@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C3 DID JSON-LD Context — did:c3</title>
+<meta name="description" content="JSON-LD context definition for the C3 DID Method. Defines extension namespaces for cooperative stewardship, faction credentials, and tool identity.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --royal-blue: #1E3A6E;
+  --gold: #C4973B;
+  --gold-light: #D4A94E;
+  --ink: #1A1A2E;
+  --text: #3A3A52;
+  --text-light: #6B6B82;
+  --bg: #FAFAF7;
+  --bg-code: #1E1E2E;
+  --white: #FFFFFF;
+  --border: #E0DDD6;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.7;
+  font-size: 17px;
+}
+.top-bar {
+  background: var(--royal-blue);
+  color: rgba(255,255,255,0.7);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 0;
+  text-align: center;
+  font-weight: 500;
+}
+.top-bar a { color: var(--gold-light); text-decoration: none; }
+.top-bar a:hover { text-decoration: underline; }
+.container { max-width: 960px; margin: 0 auto; padding: 48px 24px; }
+h1 {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.subtitle {
+  font-size: 1.05rem;
+  color: var(--text-light);
+  margin-bottom: 32px;
+}
+.meta-row {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+  font-size: 0.9rem;
+}
+.meta-item {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 16px;
+}
+.meta-item .label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-light);
+  margin-bottom: 2px;
+}
+.meta-item .value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--ink);
+  word-break: break-all;
+}
+.meta-item .value a { color: var(--royal-blue); text-decoration: none; }
+.meta-item .value a:hover { text-decoration: underline; }
+h2 {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 36px 0 12px;
+}
+p { margin-bottom: 16px; }
+.context-block {
+  background: var(--bg-code);
+  border-radius: 8px;
+  padding: 24px;
+  margin: 20px 0;
+  overflow-x: auto;
+}
+.context-block pre {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: #E2E8F0;
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre;
+}
+.ns-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.92rem;
+}
+.ns-table th {
+  background: var(--ink);
+  color: var(--white);
+  text-align: left;
+  padding: 10px 14px;
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.ns-table th:first-child { border-radius: 6px 0 0 0; }
+.ns-table th:last-child { border-radius: 0 6px 0 0; }
+.ns-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.ns-table tr:nth-child(even) { background: #F5F3EE; }
+.ns-table code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  background: rgba(30,58,110,0.06);
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+.badge-pass {
+  display: inline-block;
+  background: #DCFCE7;
+  color: #166534;
+  font-weight: 600;
+  font-size: 0.82rem;
+  padding: 2px 10px;
+  border-radius: 4px;
+}
+footer {
+  background: var(--ink);
+  color: rgba(255,255,255,0.5);
+  padding: 32px 24px;
+  text-align: center;
+  font-size: 0.85rem;
+  margin-top: 48px;
+}
+footer a { color: var(--gold-light); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <a href="https://did.c3-alliance.org">← Back to Specification</a> · C3 DID Method · JSON-LD Context
+</div>
+
+<div class="container">
+  <h1>C3 DID JSON-LD Context</h1>
+  <p class="subtitle">Extension namespace defining cooperative stewardship, faction credentials, tool identity, and economic vault properties for <code>did:c3</code> DID Documents.</p>
+
+  <div class="meta-row">
+    <div class="meta-item">
+      <div class="label">Canonical URL</div>
+      <div class="value"><a href="https://did.c3-alliance.org/ns/c3/v1.jsonld">https://did.c3-alliance.org/ns/c3/v1</a></div>
+    </div>
+    <div class="meta-item">
+      <div class="label">Version</div>
+      <div class="value">1.1</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">W3C Item 2.13</div>
+      <div class="value"><span class="badge-pass">✓ PASS</span></div>
+    </div>
+    <div class="meta-item">
+      <div class="label">Content-Type</div>
+      <div class="value">application/ld+json</div>
+    </div>
+  </div>
+
+  <h2>Usage in DID Documents</h2>
+  <div class="context-block">
+<pre>{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/ed25519-2020/v1",
+    "<span style="color:#D4A94E">https://did.c3-alliance.org/ns/c3/v1</span>"
+  ],
+  "id": "did:c3:7xK9mP2vLqR4nW8bT3jF5hD6cA0sE4uR9iOqYzX:@Pa1B2c3D4e5F6g7H8",
+  ...
+}</pre>
+  </div>
+
+  <h2>Defined Terms</h2>
+  <table class="ns-table">
+    <thead>
+      <tr><th>Term</th><th>Type</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>stewardship</code></td><td>Object</td><td>SEID-to-entity binding — steward DID, soul-bound asset, binding transaction</td></tr>
+      <tr><td><code>factionCredentials</code></td><td>Set</td><td>Union/Guild/Syndicate faction memberships as verifiable credentials</td></tr>
+      <tr><td><code>nodeRegistrations</code></td><td>Set</td><td>N3 Commons node memberships with DACO associations</td></tr>
+      <tr><td><code>lifecycle</code></td><td>Object</td><td>Entity status, registration, maintenance, and decommission tracking</td></tr>
+      <tr><td><code>vault</code></td><td>Object</td><td>TIT Vault — PPT earnings, transmutation path, VELOC collateral status</td></tr>
+      <tr><td><code>treasury</code></td><td>Object</td><td>DACO treasury — JLZ balance, member count, operating agreement</td></tr>
+      <tr><td><code>C3FactionCredential</code></td><td>Class</td><td>Verifiable credential binding an entity to a faction</td></tr>
+      <tr><td><code>C3NodeRegistration</code></td><td>Class</td><td>Verifiable credential for N3 Commons node membership</td></tr>
+      <tr><td><code>C3StewardshipBinding</code></td><td>Class</td><td>Verifiable credential proving SEID stewardship</td></tr>
+      <tr><td><code>C3CapabilityCredential</code></td><td>Class</td><td>@T tool capability certification</td></tr>
+      <tr><td><code>C3SafetyCredential</code></td><td>Class</td><td>@T tool safety inspection and compliance</td></tr>
+      <tr><td><code>C3MaintenanceCredential</code></td><td>Class</td><td>@T tool maintenance and lifecycle records</td></tr>
+      <tr><td><code>TITVault</code></td><td>Service</td><td>Tool Intelligent Token vault service endpoint</td></tr>
+      <tr><td><code>DACOTreasury</code></td><td>Service</td><td>DACO cooperative treasury service endpoint</td></tr>
+      <tr><td><code>CoCoAEndpoint</code></td><td>Service</td><td>Claude Cooperative Assistant resolution endpoint</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Raw JSON-LD Context</h2>
+  <p>Machine-readable context file: <a href="/ns/c3/v1.jsonld" style="color:var(--royal-blue);">Download v1.jsonld</a></p>
+  <div class="context-block">
+<pre>{
+  "@context": {
+    "@version": 1.1,
+    "@protected": true,
+    "c3": "https://did.c3-alliance.org/ns/c3/v1#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "C3FactionCredential": "c3:C3FactionCredential",
+    "C3NodeRegistration": "c3:C3NodeRegistration",
+    "C3StewardshipBinding": "c3:C3StewardshipBinding",
+    "C3CapabilityCredential": "c3:C3CapabilityCredential",
+    "C3SafetyCredential": "c3:C3SafetyCredential",
+    "C3MaintenanceCredential": "c3:C3MaintenanceCredential",
+
+    "stewardship": {
+      "@id": "c3:stewardship",
+      "@type": "@id",
+      "@context": {
+        "steward":   {"@id": "c3:steward",   "@type": "@id"},
+        "seidAsset": {"@id": "c3:seidAsset", "@type": "xsd:string"},
+        "binding":   {"@id": "c3:binding",   "@type": "xsd:string"},
+        "bindingTx": {"@id": "c3:bindingTx", "@type": "xsd:string"},
+        "boundAt":   {"@id": "c3:boundAt",   "@type": "xsd:dateTime"}
+      }
+    },
+
+    "factionCredentials": {
+      "@id": "c3:factionCredentials",
+      "@container": "@set",
+      "@context": {
+        "credentialId":         {"@id": "c3:credentialId",         "@type": "xsd:string"},
+        "feid":                 {"@id": "c3:feid",                 "@type": "xsd:string"},
+        "factionType":          {"@id": "c3:factionType",          "@type": "xsd:string"},
+        "role":                 {"@id": "c3:role",                 "@type": "xsd:string"},
+        "pptSubType":           {"@id": "c3:pptSubType",           "@type": "xsd:string"},
+        "issuedBy":             {"@id": "c3:issuedBy",             "@type": "@id"},
+        "issuedAt":             {"@id": "c3:issuedAt",             "@type": "xsd:dateTime"},
+        "validUntil":           {"@id": "c3:validUntil",           "@type": "xsd:dateTime"},
+        "status":               {"@id": "c3:status",               "@type": "xsd:string"},
+        "statusListCredential": {"@id": "c3:statusListCredential", "@type": "xsd:anyURI"},
+        "statusListIndex":      {"@id": "c3:statusListIndex",      "@type": "xsd:integer"},
+        "capabilities":         {"@id": "c3:capabilities",         "@container": "@set"},
+        "node":                 {"@id": "c3:node",                 "@type": "xsd:string"}
+      }
+    },
+
+    "nodeRegistrations": {
+      "@id": "c3:nodeRegistrations",
+      "@container": "@set",
+      "@context": {
+        "neid":         {"@id": "c3:neid",         "@type": "xsd:string"},
+        "daco":         {"@id": "c3:daco",         "@type": "@id"},
+        "registeredAt": {"@id": "c3:registeredAt", "@type": "xsd:dateTime"},
+        "status":       {"@id": "c3:status",       "@type": "xsd:string"},
+        "role":         {"@id": "c3:nodeRole",     "@type": "xsd:string"}
+      }
+    },
+
+    "lifecycle": {
+      "@id": "c3:lifecycle",
+      "@context": {
+        "status":                    {"@id": "c3:lifecycleStatus",            "@type": "xsd:string"},
+        "entityType":                {"@id": "c3:entityType",                 "@type": "xsd:string"},
+        "registeredAt":              {"@id": "c3:registeredAt",               "@type": "xsd:dateTime"},
+        "registrationTx":            {"@id": "c3:registrationTx",             "@type": "xsd:string"},
+        "lastMaintenance":           {"@id": "c3:lastMaintenance",            "@type": "xsd:dateTime"},
+        "nextScheduledMaintenance":  {"@id": "c3:nextScheduledMaintenance",   "@type": "xsd:dateTime"},
+        "decommissionedAt":          {"@id": "c3:decommissionedAt",           "@type": "xsd:dateTime"},
+        "totalOperatingHours":       {"@id": "c3:totalOperatingHours",        "@type": "xsd:integer"}
+      }
+    },
+
+    "vault": {
+      "@id": "c3:vault",
+      "@context": {
+        "vaultAddress":         {"@id": "c3:vaultAddress",         "@type": "xsd:string"},
+        "pptLedger":            {"@id": "c3:pptLedger"},
+        "totalPPT":             {"@id": "c3:totalPPT",             "@type": "xsd:decimal"},
+        "transmutedLifetime":   {"@id": "c3:transmutedLifetime"},
+        "transmutationPath":    {"@id": "c3:transmutationPath",    "@type": "xsd:string"},
+        "velocCollateralActive":{"@id": "c3:velocCollateralActive","@type": "xsd:boolean"},
+        "velocValuation":       {"@id": "c3:velocValuation",       "@type": "xsd:decimal"},
+        "initializedAt":        {"@id": "c3:vaultInitializedAt",   "@type": "xsd:dateTime"}
+      }
+    },
+
+    "treasury": {
+      "@id": "c3:treasury",
+      "@context": {
+        "treasuryAddress":  {"@id": "c3:treasuryAddress",      "@type": "xsd:string"},
+        "jlzBalance":       {"@id": "c3:jlzBalance",           "@type": "xsd:decimal"},
+        "memberCount":      {"@id": "c3:memberCount",          "@type": "xsd:integer"},
+        "activeTITs":       {"@id": "c3:activeTITs",           "@type": "xsd:integer"},
+        "operatingAgreement":{"@id": "c3:operatingAgreement",  "@type": "xsd:anyURI"},
+        "jurisdiction":     {"@id": "c3:jurisdiction",          "@type": "xsd:string"},
+        "legalEntity":      {"@id": "c3:legalEntity",          "@type": "xsd:string"},
+        "initializedAt":    {"@id": "c3:treasuryInitializedAt", "@type": "xsd:dateTime"}
+      }
+    },
+
+    "C3Provenance":  "c3:C3Provenance",
+    "TITVault":      "c3:TITVault",
+    "DACOTreasury":  "c3:DACOTreasury",
+    "CoCoAEndpoint": "c3:CoCoAEndpoint"
+  }
+}</pre>
+  </div>
+</div>
+
+<footer>
+  <a href="https://did.c3-alliance.org">C3 DID Method Specification</a> ·
+  <a href="https://c3-alliance.org">C3 Alliance</a> ·
+  <a href="https://github.com/ItzPlausible/c3-did-method">GitHub</a>
+</footer>
+
+</body>
+</html>

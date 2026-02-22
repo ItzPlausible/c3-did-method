@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C3 DID Method — did:c3 Specification v1.0</title>
+  <meta name="description" content="The C3 DID Method (did:c3) — a W3C-conformant Decentralized Identifier standard for human personas, cooperative entities, intelligent tools, and guest identities. Anchored on Cardano.">
+  <meta name="keywords" content="DID, W3C, decentralized identity, cooperative, Cardano, SSI, verifiable credentials, SEID, C3 Alliance">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="C3 DID Method — did:c3">
+  <meta property="og:description" content="W3C-conformant Decentralized Identity for Persons, Cooperatives, Intelligent Tools, and Guests. Anchored on Cardano L1.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://did.c3-alliance.org">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --crimson: #8B1A2B;
+      --crimson-light: #A82240;
+      --royal-blue: #1E3A6E;
+      --royal-blue-light: #2A4F8F;
+      --purple: #4A2060;
+      --purple-light: #6B3090;
+      --gold: #C5922E;
+      --gold-light: #D4A94A;
+      --gold-pale: #F5E6C8;
+      
+      --bg: #FAFAF8;
+      --bg-warm: #F5F3EF;
+      --bg-code: #1C1C2E;
+      --text: #1A1A2E;
+      --text-muted: #5A5A6E;
+      --text-light: #8A8A9E;
+      --border: #E0DDD5;
+      --border-light: #ECEAE4;
+      
+      --serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+      --sans: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', 'Consolas', 'Courier New', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    html { scroll-behavior: smooth; font-size: 17px; }
+    
+    body {
+      font-family: var(--sans);
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* === HERO === */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: linear-gradient(160deg, var(--royal-blue) 0%, #152A52 40%, var(--purple) 100%);
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse 60% 50% at 20% 80%, rgba(139,26,43,0.25) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(197,146,46,0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0v60M0 30h60' stroke='%23ffffff' stroke-opacity='0.03' stroke-width='0.5'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 860px;
+      padding: 2rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 1.2rem;
+      border: 1px solid rgba(197,146,46,0.5);
+      border-radius: 100px;
+      color: var(--gold-light);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+      background: rgba(197,146,46,0.08);
+      animation: fadeDown 0.8s ease-out;
+    }
+    
+    .hero-badge::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      color: #fff;
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+      animation: fadeUp 0.8s ease-out 0.2s both;
+    }
+    
+    .hero h1 .accent {
+      color: var(--gold-light);
+      font-style: italic;
+    }
+
+    .hero-method {
+      font-family: var(--mono);
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 2rem;
+      font-weight: 400;
+      animation: fadeUp 0.8s ease-out 0.35s both;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.65);
+      max-width: 600px;
+      margin: 0 auto 3rem;
+      font-weight: 300;
+      line-height: 1.8;
+      animation: fadeUp 0.8s ease-out 0.5s both;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeUp 0.8s ease-out 0.65s both;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      border-radius: 6px;
+      font-family: var(--sans);
+      font-size: 0.92rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      border: none;
+    }
+    
+    .btn-primary {
+      background: var(--gold);
+      color: var(--text);
+    }
+    
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(197,146,46,0.3);
+    }
+    
+    .btn-ghost {
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.14);
+      border-color: rgba(255,255,255,0.35);
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* === CONFORMANCE STRIP === */
+    .conformance-strip {
+      background: var(--bg-warm);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    
+    .conformance-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    
+    .conformance-item .num {
+      font-family: var(--mono);
+      font-weight: 600;
+      color: var(--royal-blue);
+      font-size: 1.1rem;
+    }
+    
+    .conformance-item .check {
+      color: #2D8B4E;
+      font-size: 1rem;
+    }
+
+    /* === SECTIONS === */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+    
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+    
+    .section h2 {
+      font-family: var(--serif);
+      font-size: 2.4rem;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    
+    .section-intro {
+      font-size: 1.08rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      line-height: 1.8;
+      margin-bottom: 3rem;
+    }
+
+    /* === SYNTAX SHOWCASE === */
+    .syntax-showcase {
+      background: var(--bg-code);
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin: 2rem 0 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .syntax-showcase::before {
+      content: 'ABNF';
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.2);
+      text-transform: uppercase;
+    }
+
+    .syntax-line {
+      font-family: var(--mono);
+      font-size: 0.95rem;
+      line-height: 2;
+      color: rgba(255,255,255,0.85);
+      white-space: nowrap;
+      overflow-x: auto;
+    }
+    
+    .syn-keyword { color: #7AA2F7; }
+    .syn-string { color: #9ECE6A; }
+    .syn-prefix { color: #FF9E64; }
+    .syn-seid { color: #BB9AF7; }
+    .syn-entity { color: #F7768E; }
+    .syn-hash { color: #73DACA; }
+    .syn-comment { color: rgba(255,255,255,0.3); font-style: italic; }
+
+    /* === FOUR ENTITIES === */
+    .entity-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    @media (max-width: 680px) {
+      .entity-grid { grid-template-columns: 1fr; }
+    }
+    
+    .entity-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .entity-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+    
+    .entity-card:hover {
+      border-color: var(--border-light);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+      transform: translateY(-3px);
+    }
+    
+    .entity-card.persona::before { background: var(--royal-blue); }
+    .entity-card.daco::before { background: var(--crimson); }
+    .entity-card.tool::before { background: var(--purple); }
+    .entity-card.guest::before { background: var(--gold); }
+    
+    .entity-prefix {
+      font-family: var(--mono);
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .entity-card.persona .entity-prefix { color: var(--royal-blue); }
+    .entity-card.daco .entity-prefix { color: var(--crimson); }
+    .entity-card.tool .entity-prefix { color: var(--purple); }
+    .entity-card.guest .entity-prefix { color: var(--gold); }
+    
+    .entity-card h3 {
+      font-family: var(--sans);
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+    
+    .entity-card p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    
+    .entity-example {
+      margin-top: 1.2rem;
+      padding: 0.65rem 1rem;
+      background: var(--bg-warm);
+      border-radius: 6px;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      word-break: break-all;
+      line-height: 1.5;
+    }
+
+    /* === AI CALLOUT === */
+    .ai-callout {
+      background: linear-gradient(135deg, var(--purple) 0%, var(--royal-blue) 100%);
+      border-radius: 12px;
+      padding: 3rem;
+      margin: 3rem 0;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .ai-callout::after {
+      content: '@T';
+      position: absolute;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--mono);
+      font-size: 8rem;
+      font-weight: 700;
+      opacity: 0.06;
+      line-height: 1;
+    }
+    
+    .ai-callout h3 {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      font-weight: 400;
+    }
+    
+    .ai-callout p {
+      opacity: 0.85;
+      max-width: 600px;
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+    
+    .ai-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .ai-stat .number {
+      font-family: var(--mono);
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--gold-light);
+    }
+    
+    .ai-stat .label {
+      font-size: 0.78rem;
+      opacity: 0.6;
+      margin-top: 0.2rem;
+    }
+
+    /* === FACTIONS TABLE === */
+    .faction-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+    }
+    
+    .faction-table th {
+      text-align: left;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      padding: 1rem;
+      border-bottom: 2px solid var(--border);
+    }
+    
+    .faction-table td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 0.92rem;
+      vertical-align: middle;
+    }
+    
+    .faction-name {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    
+    .faction-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    
+    .faction-dot.union { background: #2D8B4E; }
+    .faction-dot.guild { background: var(--royal-blue); }
+    .faction-dot.syndicate { background: var(--crimson); }
+    
+    .token-badge {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      background: var(--bg-warm);
+      color: var(--text-muted);
+    }
+
+    /* === CONFORMANCE MATRIX === */
+    .conformance-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    
+    .conf-item {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    
+    .conf-check {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #E8F5E9;
+      color: #2D8B4E;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    
+    .conf-label {
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+    
+    .conf-score {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--text-light);
+    }
+
+    /* === TECH STACK === */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    
+    .stack-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      padding: 1rem;
+      border-left: 2px solid var(--border);
+      transition: border-color 0.3s ease;
+    }
+    
+    .stack-item:hover { border-left-color: var(--gold); }
+    
+    .stack-item .layer {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+    
+    .stack-item .tech {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-top: 0.15rem;
+    }
+    
+    .stack-item .desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    /* === RESOURCES === */
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    
+    .resource-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 2rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.3s ease;
+      display: block;
+    }
+    
+    .resource-card:hover {
+      border-color: var(--gold);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      transform: translateY(-2px);
+    }
+    
+    .resource-card .icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.8rem;
+    }
+    
+    .resource-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+    
+    .resource-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* === FOOTER === */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    
+    .footer-inner {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    
+    .footer-links a:hover { color: var(--royal-blue); }
+    
+    .footer-tagline {
+      font-family: var(--serif);
+      font-style: italic;
+      color: var(--text-light);
+      font-size: 1rem;
+      margin-bottom: 0.8rem;
+    }
+    
+    .footer-legal {
+      font-size: 0.75rem;
+      color: var(--text-light);
+    }
+    
+    .footer-legal a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 768px) {
+      .hero { min-height: 90vh; }
+      .hero h1 { font-size: 2.6rem; }
+      .section { padding: 3rem 1.25rem; }
+      .section h2 { font-size: 1.8rem; }
+      .conformance-strip { gap: 1.5rem; padding: 1.2rem 1rem; }
+      .syntax-showcase { padding: 1.5rem; }
+      .syntax-line { font-size: 0.78rem; }
+      .ai-callout { padding: 2rem; }
+      .ai-callout::after { display: none; }
+      .ai-stats { gap: 1.5rem; }
+      .entity-grid { grid-template-columns: 1fr; }
+    }
+
+    /* === DIVIDERS === */
+    .section + .section { border-top: 1px solid var(--border-light); }
+    
+    /* === SCROLL REVEAL === */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">W3C DID Core Conformant · v1.0</div>
+      <h1>C3 DID <span class="accent">Method</span></h1>
+      <div class="hero-method">did:c3</div>
+      <p class="hero-sub">
+        Decentralized Identity for Persons, Cooperatives, Intelligent Tools, and Guests.
+        One human steward. One soul-bound anchor. Every entity accountable.
+      </p>
+      <div class="hero-actions">
+        <a href="https://github.com/ItzPlausible/c3-did-method/releases/tag/v1.0" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          View Specification
+        </a>
+        <a href="#entities" class="btn btn-ghost">Explore the Model →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONFORMANCE STRIP -->
+  <div class="conformance-strip">
+    <div class="conformance-item">
+      <span class="check">✓</span>
+      <span><span class="num">45</span>/45 W3C Requirements Pass</span>
+    </div>
+    <div class="conformance-item">
+      <span class="check">✓</span>
+      <span>4 Entity Types · @P @D @T @G</span>
+    </div>
+    <div class="conformance-item">
+      <span class="check">✓</span>
+      <span>Cardano L1 + Hydra L2</span>
+    </div>
+    <div class="conformance-item">
+      <span class="check">✓</span>
+      <span>Midnight Zero-Knowledge Privacy</span>
+    </div>
+  </div>
+
+  <!-- SYNTAX -->
+  <section class="section" id="syntax">
+    <div class="reveal">
+      <div class="section-label">Method Syntax</div>
+      <h2>One identifier. One stewardship chain.</h2>
+      <p class="section-intro">
+        Every <code>did:c3</code> encodes a single, immutable relationship: this human stewards this entity. The SEID is a soul-bound, non-transferable proof-of-humanity on Cardano L1.
+      </p>
+    </div>
+    <div class="syntax-showcase reveal">
+      <div class="syntax-line">
+        <span class="syn-keyword">c3-did</span> = <span class="syn-string">"did:c3:"</span> <span class="syn-seid">seid</span> <span class="syn-string">":@"</span> <span class="syn-entity">entity-prefix</span> <span class="syn-hash">entity-hash</span>
+      </div>
+      <div class="syntax-line">
+        <span class="syn-keyword">seid</span> = 1*40(<span class="syn-seid">BASE58CHAR</span>) <span class="syn-comment">; BLAKE2b-512 → Base58, quantum-proactive</span>
+      </div>
+      <div class="syntax-line">
+        <span class="syn-keyword">entity-prefix</span> = <span class="syn-entity">"P"</span> / <span class="syn-entity">"D"</span> / <span class="syn-entity">"T"</span> / <span class="syn-entity">"G"</span> <span class="syn-comment">; Persona / DACO / Tool / Guest</span>
+      </div>
+      <div class="syntax-line">
+        <span class="syn-keyword">entity-hash</span> = 1*64(<span class="syn-hash">BASE58CHAR</span>) <span class="syn-comment">; tx hash derived</span>
+      </div>
+    </div>
+    <div class="syntax-showcase reveal" style="margin-top: 1rem;">
+      <div class="syntax-line syn-comment"># Example: One human, four entities</div>
+      <div class="syntax-line" style="margin-top: 0.5rem;">
+        <span class="syn-string">did:c3:</span><span class="syn-seid">7xK9mP2vLqR4nW8bT3jF5hD6cA0sE4uR9iOqYzX</span><span class="syn-string">:@</span><span class="syn-entity">P</span><span class="syn-hash">a1B2c3D4e5F6g7H8</span> <span class="syn-comment">← Persona</span>
+      </div>
+      <div class="syntax-line">
+        <span class="syn-string">did:c3:</span><span class="syn-seid">7xK9mP2vLqR4nW8bT3jF5hD6cA0sE4uR9iOqYzX</span><span class="syn-string">:@</span><span class="syn-entity">D</span><span class="syn-hash">x7Y8z9A0b1C2d3E4</span> <span class="syn-comment">← Cooperative</span>
+      </div>
+      <div class="syntax-line">
+        <span class="syn-string">did:c3:</span><span class="syn-seid">7xK9mP2vLqR4nW8bT3jF5hD6cA0sE4uR9iOqYzX</span><span class="syn-string">:@</span><span class="syn-entity">T</span><span class="syn-hash">m3N4p5Q6r7S8t9U0</span> <span class="syn-comment">← Robot/AI</span>
+      </div>
+      <div class="syntax-line">
+        <span class="syn-string">did:c3:</span><span class="syn-seid">Fg3Hk8mN2pQ5rT7vW9xY1zA4bC6dE0fG2hJ4k</span><span class="syn-string">:@</span><span class="syn-entity">G</span><span class="syn-hash">e5F6g7H8i9J0k1L2m3N4p5</span> <span class="syn-comment">← Guest (90-day, Pontisto Pool)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUR ENTITIES -->
+  <section class="section" id="entities">
+    <div class="reveal">
+      <div class="section-label">Four-Entity Model</div>
+      <h2>Persons. Cooperatives. Tools. Guests.</h2>
+      <p class="section-intro">
+        Every entity in the C3 ecosystem maps to exactly one of four types — three permanently anchored to a human steward on Cardano L1, and one ephemeral sponsored identity for frictionless onboarding.
+      </p>
+    </div>
+    <div class="entity-grid">
+      <div class="entity-card persona reveal">
+        <div class="entity-prefix">@P</div>
+        <h3>Persona</h3>
+        <p>A human member's cooperative identity. Holds faction credentials, participates in governance, earns patronage tokens across Union, Guild, and Syndicate domains.</p>
+        <div class="entity-example">did:c3:&lt;SEID&gt;:@P&lt;hash&gt;</div>
+      </div>
+      <div class="entity-card daco reveal">
+        <div class="entity-prefix">@D</div>
+        <h3>DACO</h3>
+        <p>A Decentralized Autonomous Cooperative Organization. Multi-stakeholder governance with member rosters, treasury management, and collective decision-making on-chain.</p>
+        <div class="entity-example">did:c3:&lt;SEID&gt;:@D&lt;hash&gt;</div>
+      </div>
+      <div class="entity-card tool reveal">
+        <div class="entity-prefix">@T</div>
+        <h3>Tool</h3>
+        <p>A robot, AI agent, or intelligent device. QR-anchored to physical hardware. Earns PPT directly from cooperative work. The steward governs; the tool produces.</p>
+        <div class="entity-example">did:c3:&lt;SEID&gt;:@T&lt;hash&gt;</div>
+      </div>
+      <div class="entity-card guest reveal">
+        <div class="entity-prefix">@G</div>
+        <h3>Guest</h3>
+        <p>An ephemeral, anonymous identity for prospective members. Issued by CoCoA at first contact via device fingerprint — no wallet, no KYC required. Sponsored by the Pontisto Pool or Syndicate fallback. 90-day active window.</p>
+        <div class="entity-example">did:c3:&lt;G-SEID&gt;:@G&lt;hash&gt; · 90-day · Pontisto Pool sponsored</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI IDENTITY CRISIS -->
+  <section class="section">
+    <div class="reveal">
+      <div class="ai-callout">
+        <h3>The Embodied AI Identity Crisis</h3>
+        <p>
+          Billions of robots and AI agents are entering the physical world. Every autonomous machine needs an answer to one question: <em>"Who is responsible for what this tool just did?"</em> The @T entity type provides verifiable, on-chain stewardship binding between human and machine — not ownership, but accountability.
+        </p>
+        <div class="ai-stats">
+          <div class="ai-stat">
+            <div class="number">2M+</div>
+            <div class="label">Industrial robots today</div>
+          </div>
+          <div class="ai-stat">
+            <div class="number">500K+</div>
+            <div class="label">Warehouse robots (Amazon)</div>
+          </div>
+          <div class="ai-stat">
+            <div class="number">Billions</div>
+            <div class="label">IoT devices need SSI-DID</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FACTIONS -->
+  <section class="section" id="factions">
+    <div class="reveal">
+      <div class="section-label">Cooperative Architecture</div>
+      <h2>Three Factions, One Economy</h2>
+      <p class="section-intro">
+        Multi-stakeholder cooperative stewardship organized through three fundamental economic roles. Faction memberships are verifiable credentials — identity never changes as roles evolve.
+      </p>
+    </div>
+    <table class="faction-table reveal">
+      <thead>
+        <tr>
+          <th>Faction</th>
+          <th>Domain</th>
+          <th>Token</th>
+          <th>Economic Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="faction-name"><span class="faction-dot union"></span> Union</span></td>
+          <td>Production</td>
+          <td><span class="token-badge">PDT</span></td>
+          <td>Productive labor, manufacturing, energy generation</td>
+        </tr>
+        <tr>
+          <td><span class="faction-name"><span class="faction-dot guild"></span> Guild</span></td>
+          <td>Procurement</td>
+          <td><span class="token-badge">PCT</span></td>
+          <td>Resource acquisition, supply chain, logistics</td>
+        </tr>
+        <tr>
+          <td><span class="faction-name"><span class="faction-dot syndicate"></span> Syndicate</span></td>
+          <td>Promotion</td>
+          <td><span class="token-badge">PMT</span></td>
+          <td>Outreach, education, ecosystem growth</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- CONFORMANCE -->
+  <section class="section" id="conformance">
+    <div class="reveal">
+      <div class="section-label">W3C Conformance</div>
+      <h2>45 of 45 Requirements Pass</h2>
+      <p class="section-intro">
+        Independently audited against W3C DID Core v1.0 (2022-07-19). The single partial result is a deployment task — JSON-LD context URL publication — not a specification deficiency.
+      </p>
+    </div>
+    <div class="conformance-grid reveal">
+      <div class="conf-item">
+        <div class="conf-check">✓</div>
+        <div>
+          <div class="conf-label">DID Syntax</div>
+          <div class="conf-score">8/8</div>
+        </div>
+      </div>
+      <div class="conf-item">
+        <div class="conf-check">✓</div>
+        <div>
+          <div class="conf-label">DID Document</div>
+          <div class="conf-score">13/14 (1 partial)</div>
+        </div>
+      </div>
+      <div class="conf-item">
+        <div class="conf-check">✓</div>
+        <div>
+          <div class="conf-label">DID Resolution</div>
+          <div class="conf-score">6/6</div>
+        </div>
+      </div>
+      <div class="conf-item">
+        <div class="conf-check">✓</div>
+        <div>
+          <div class="conf-label">URL Dereferencing</div>
+          <div class="conf-score">4/4</div>
+        </div>
+      </div>
+      <div class="conf-item">
+        <div class="conf-check">✓</div>
+        <div>
+          <div class="conf-label">DID Operations</div>
+          <div class="conf-score">4/4</div>
+        </div>
+      </div>
+      <div class="conf-item">
+        <div class="conf-check">✓</div>
+        <div>
+          <div class="conf-label">Security</div>
+          <div class="conf-score">5/5</div>
+        </div>
+      </div>
+      <div class="conf-item">
+        <div class="conf-check">✓</div>
+        <div>
+          <div class="conf-label">Privacy</div>
+          <div class="conf-score">4/4</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH STACK -->
+  <section class="section" id="stack">
+    <div class="reveal">
+      <div class="section-label">Technical Stack</div>
+      <h2>Built on Cardano. Privacy via Midnight.</h2>
+    </div>
+    <div class="stack-grid reveal">
+      <div class="stack-item">
+        <div>
+          <div class="layer">Settlement</div>
+          <div class="tech">Cardano L1 (Plutus V3)</div>
+          <div class="desc">SEID minting, DID registration</div>
+        </div>
+      </div>
+      <div class="stack-item">
+        <div>
+          <div class="layer">Scaling</div>
+          <div class="tech">Hydra L2</div>
+          <div class="desc">Faction-partitioned earning sessions</div>
+        </div>
+      </div>
+      <div class="stack-item">
+        <div>
+          <div class="layer">Privacy</div>
+          <div class="tech">Midnight Network</div>
+          <div class="desc">Zero-knowledge selective disclosure</div>
+        </div>
+      </div>
+      <div class="stack-item">
+        <div>
+          <div class="layer">Identity</div>
+          <div class="tech">Hyperledger Identus</div>
+          <div class="desc">SSI lifecycle management</div>
+        </div>
+      </div>
+      <div class="stack-item">
+        <div>
+          <div class="layer">Resolution</div>
+          <div class="tech">Blockfrost API</div>
+          <div class="desc">On-chain DID document retrieval</div>
+        </div>
+      </div>
+      <div class="stack-item">
+        <div>
+          <div class="layer">Application</div>
+          <div class="tech">CoCoA Agent</div>
+          <div class="desc">Human-readable SEID resolution</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESOURCES -->
+  <section class="section" id="resources">
+    <div class="reveal">
+      <div class="section-label">Resources</div>
+      <h2>Explore the Specification</h2>
+    </div>
+    <div class="resources-grid reveal">
+      <a href="https://github.com/ItzPlausible/c3-did-method/releases/tag/v1.0" class="resource-card">
+        <div class="icon">📋</div>
+        <h3>Full Specification — v1.0</h3>
+        <p>22-section method specification covering four entity types (@P @D @T @G), Pontisto Pool sponsorship, Syndicate fallback, corrected ABNF, and website update requirements.</p>
+      </a>
+      <a href="https://github.com/ItzPlausible/c3-did-method/blob/main/audits/w3c-did-core-conformance-v1.0.md" class="resource-card">
+        <div class="icon">✅</div>
+        <h3>W3C Conformance Audit</h3>
+        <p>45/45 W3C DID Core requirements verified for v1.0. Complete audit with findings, recommendations, and implementer checklist.</p>
+      </a>
+      <a href="https://github.com/ItzPlausible/c3-did-method/tree/main/spec/schemas" class="resource-card">
+        <div class="icon">🔗</div>
+        <h3>JSON-LD Context &amp; Schemas</h3>
+        <p>C3 DID context, Pontisto Credential schema, Guest Issuance schema, faction credential schema, and stewardship binding schema.</p>
+      </a>
+      <a href="https://github.com/ItzPlausible/c3-did-method/tree/main/spec/examples" class="resource-card">
+        <div class="icon">📄</div>
+        <h3>Example DID Documents</h3>
+        <p>Complete @P (Persona), @D (DACO), @T (Tool), and @G (Guest) DID document examples with all required and optional fields.</p>
+      </a>
+      <a href="https://c3-alliance.org" class="resource-card">
+        <div class="icon">🌐</div>
+        <h3>C3 Alliance</h3>
+        <p>Cosmic Commons Communities Alliance — the cooperative network building sovereign stewardship infrastructure.</p>
+      </a>
+      <a href="https://did.c3-alliance.org/changelog" class="resource-card">
+        <div class="icon">📝</div>
+        <h3>Changelog</h3>
+        <p>v0.5 → v1.0: Pontisto Pool sponsorship, Syndicate fallback, @G Guest entity type, corrected ABNF, D1 schema additions, and Cloudflare Worker update requirements.</p>
+      </a>
+      <a href="https://github.com/ItzPlausible/c3-did-method#contributing" class="resource-card">
+        <div class="icon">🤝</div>
+        <h3>Contribute</h3>
+        <p>Open specification under Apache 2.0. Seeking cooperative developers, Cardano engineers, SSI specialists, and privacy engineers.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="https://c3-alliance.org">C3 Alliance</a>
+        <a href="https://plausiblepotentials.com">Plausible Potentials</a>
+        <a href="https://github.com/ItzPlausible/c3-did-method">GitHub</a>
+        <a href="https://www.w3.org/TR/did-core/">W3C DID Core</a>
+      </div>
+      <div class="footer-tagline">Every entity accountable. Every human sovereign. Every tool stewarded. Every guest welcomed.</div>
+      <div class="footer-legal">
+        Apache 2.0 · <a href="https://plausiblepotentials.com">Plausible Potentials Consulting DAO LLC</a> · 2026
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll reveal -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

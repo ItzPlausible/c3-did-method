@@ -1,0 +1,12 @@
+
+ ⛅️ wrangler 4.67.0
+───────────────────
+🌀 Building list of assets...
+✨ Read 8 files from the assets directory D:\PPC\c3-did-method\did-c3-alliance-site\public
+🌀 Starting asset upload...
+No updated asset files to upload. Proceeding with deployment...
+Total Upload: 1.05 KiB / gzip: 0.39 KiB
+Uploaded did-c3-alliance-site (4.91 sec)
+Deployed did-c3-alliance-site triggers (2.72 sec)
+  did.c3-alliance.org (custom domain)
+Current Version ID: 6025b29e-2d78-4347-a064-63c5f152e783

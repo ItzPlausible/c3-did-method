@@ -1,0 +1,145 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@protected": true,
+    "c3": "https://did.c3-alliance.org/ns/c3/v1#",
+    "c3vocab": "https://did.c3-alliance.org/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "C3FactionCredential": "c3:C3FactionCredential",
+    "C3NodeRegistration": "c3:C3NodeRegistration",
+    "C3StewardshipBinding": "c3:C3StewardshipBinding",
+    "C3CapabilityCredential": "c3:C3CapabilityCredential",
+    "C3SafetyCredential": "c3:C3SafetyCredential",
+    "C3MaintenanceCredential": "c3:C3MaintenanceCredential",
+
+    "stewardship": {
+      "@id": "c3:stewardship",
+      "@type": "@id",
+      "@context": {
+        "steward": {"@id": "c3:steward", "@type": "@id"},
+        "seidAsset": {"@id": "c3:seidAsset", "@type": "xsd:string"},
+        "binding": {"@id": "c3:binding", "@type": "xsd:string"},
+        "bindingTx": {"@id": "c3:bindingTx", "@type": "xsd:string"},
+        "boundAt": {"@id": "c3:boundAt", "@type": "xsd:dateTime"}
+      }
+    },
+
+    "factionCredentials": {
+      "@id": "c3:factionCredentials",
+      "@container": "@set",
+      "@context": {
+        "credentialId": {"@id": "c3:credentialId", "@type": "xsd:string"},
+        "feid": {"@id": "c3:feid", "@type": "xsd:string"},
+        "factionType": {"@id": "c3:factionType", "@type": "xsd:string"},
+        "role": {"@id": "c3:role", "@type": "xsd:string"},
+        "pptSubType": {"@id": "c3:pptSubType", "@type": "xsd:string"},
+        "issuedBy": {"@id": "c3:issuedBy", "@type": "@id"},
+        "issuedAt": {"@id": "c3:issuedAt", "@type": "xsd:dateTime"},
+        "validUntil": {"@id": "c3:validUntil", "@type": "xsd:dateTime"},
+        "status": {"@id": "c3:status", "@type": "xsd:string"},
+        "statusListCredential": {"@id": "c3:statusListCredential", "@type": "xsd:anyURI"},
+        "statusListIndex": {"@id": "c3:statusListIndex", "@type": "xsd:integer"},
+        "capabilities": {"@id": "c3:capabilities", "@container": "@set"},
+        "node": {"@id": "c3:node", "@type": "xsd:string"}
+      }
+    },
+
+    "nodeRegistrations": {
+      "@id": "c3:nodeRegistrations",
+      "@container": "@set",
+      "@context": {
+        "neid": {"@id": "c3:neid", "@type": "xsd:string"},
+        "daco": {"@id": "c3:daco", "@type": "@id"},
+        "registeredAt": {"@id": "c3:registeredAt", "@type": "xsd:dateTime"},
+        "status": {"@id": "c3:status", "@type": "xsd:string"},
+        "role": {"@id": "c3:nodeRole", "@type": "xsd:string"}
+      }
+    },
+
+    "lifecycle": {
+      "@id": "c3:lifecycle",
+      "@context": {
+        "status": {"@id": "c3:lifecycleStatus", "@type": "xsd:string"},
+        "entityType": {"@id": "c3:entityType", "@type": "xsd:string"},
+        "registeredAt": {"@id": "c3:registeredAt", "@type": "xsd:dateTime"},
+        "registrationTx": {"@id": "c3:registrationTx", "@type": "xsd:string"},
+        "lastMaintenance": {"@id": "c3:lastMaintenance", "@type": "xsd:dateTime"},
+        "nextScheduledMaintenance": {"@id": "c3:nextScheduledMaintenance", "@type": "xsd:dateTime"},
+        "decommissionedAt": {"@id": "c3:decommissionedAt", "@type": "xsd:dateTime"},
+        "totalOperatingHours": {"@id": "c3:totalOperatingHours", "@type": "xsd:integer"}
+      }
+    },
+
+    "vault": {
+      "@id": "c3:vault",
+      "@context": {
+        "vaultAddress": {"@id": "c3:vaultAddress", "@type": "xsd:string"},
+        "pptLedger": {"@id": "c3:pptLedger"},
+        "totalPPT": {"@id": "c3:totalPPT", "@type": "xsd:decimal"},
+        "transmutedLifetime": {"@id": "c3:transmutedLifetime"},
+        "transmutationPath": {"@id": "c3:transmutationPath", "@type": "xsd:string"},
+        "velocCollateralActive": {"@id": "c3:velocCollateralActive", "@type": "xsd:boolean"},
+        "velocValuation": {"@id": "c3:velocValuation", "@type": "xsd:decimal"},
+        "initializedAt": {"@id": "c3:vaultInitializedAt", "@type": "xsd:dateTime"}
+      }
+    },
+
+    "treasury": {
+      "@id": "c3:treasury",
+      "@context": {
+        "treasuryAddress": {"@id": "c3:treasuryAddress", "@type": "xsd:string"},
+        "jlzBalance": {"@id": "c3:jlzBalance", "@type": "xsd:decimal"},
+        "memberCount": {"@id": "c3:memberCount", "@type": "xsd:integer"},
+        "activeTITs": {"@id": "c3:activeTITs", "@type": "xsd:integer"},
+        "operatingAgreement": {"@id": "c3:operatingAgreement", "@type": "xsd:anyURI"},
+        "jurisdiction": {"@id": "c3:jurisdiction", "@type": "xsd:string"},
+        "legalEntity": {"@id": "c3:legalEntity", "@type": "xsd:string"},
+        "initializedAt": {"@id": "c3:treasuryInitializedAt", "@type": "xsd:dateTime"}
+      }
+    },
+
+    "C3Provenance": "c3:C3Provenance",
+    "TITVault": "c3:TITVault",
+    "DACOTreasury": "c3:DACOTreasury",
+    "CoCoAEndpoint": "c3:CoCoAEndpoint",
+
+    "GuestIssuanceCredential": {"@id": "c3vocab:GuestIssuanceCredential"},
+    "CoCoAConversation": "c3:CoCoAConversation",
+
+    "entityType":       {"@id": "c3vocab:entityType",       "@type": "xsd:string"},
+    "entityPrefix":     {"@id": "c3vocab:entityPrefix",     "@type": "xsd:string"},
+    "sponsorDid":       {"@id": "c3vocab:sponsorDid",       "@type": "@id"},
+    "sponsorName":      {"@id": "c3vocab:sponsorName",      "@type": "xsd:string"},
+    "entryPathway":     {"@id": "c3vocab:entryPathway",     "@type": "xsd:string"},
+    "guestWindow":      {"@id": "c3vocab:guestWindow",      "@type": "xsd:integer"},
+    "accessTier":       {"@id": "c3vocab:accessTier",       "@type": "xsd:string"},
+    "upgradeTarget":    {"@id": "c3vocab:upgradeTarget",    "@type": "xsd:string"},
+    "upgradeFlow":      {"@id": "c3vocab:upgradeFlow",      "@type": "xsd:string"},
+    "identityAnchor":   {"@id": "c3vocab:identityAnchor",   "@type": "xsd:string"},
+    "issuedAt":         {"@id": "c3:issuedAt",              "@type": "xsd:dateTime"},
+    "expiresAt":        {"@id": "c3vocab:expiresAt",        "@type": "xsd:dateTime"},
+
+    "guestIssuanceCredential": {
+      "@id": "c3vocab:guestIssuanceCredential",
+      "@context": {
+        "guestDid":         {"@id": "c3vocab:guestDid",         "@type": "xsd:string"},
+        "upgradeFlow":      {"@id": "c3vocab:upgradeFlow",      "@type": "xsd:string"},
+        "guestWindow":      {"@id": "c3vocab:guestWindow",      "@type": "xsd:integer"},
+        "identityAnchor":   {"@id": "c3vocab:identityAnchor",   "@type": "xsd:string"},
+        "ecosystemAccess": {
+          "@id": "c3vocab:ecosystemAccess",
+          "@context": {
+            "c3dex":          {"@id": "c3vocab:accessC3dex",          "@type": "xsd:string"},
+            "voice":          {"@id": "c3vocab:accessVoice",          "@type": "xsd:string"},
+            "cocoa":          {"@id": "c3vocab:accessCocoa",          "@type": "xsd:string"},
+            "questTracker":   {"@id": "c3vocab:accessQuestTracker",   "@type": "xsd:string"},
+            "veloc":          {"@id": "c3vocab:accessVeloc",          "@type": "xsd:string"},
+            "governance":     {"@id": "c3vocab:accessGovernance",     "@type": "xsd:string"},
+            "tokenFunctions": {"@id": "c3vocab:accessTokenFunctions", "@type": "xsd:string"}
+          }
+        }
+      }
+    }
+  }
+}

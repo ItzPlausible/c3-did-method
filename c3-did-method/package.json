@@ -1,0 +1,35 @@
+{
+  "name": "@c3alliance/did-method-ref",
+  "version": "0.4.0",
+  "description": "C3 DID Method Reference Implementation — SEID and Entity Hash Generation",
+  "main": "dist/c3-did.js",
+  "types": "dist/c3-did.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "demo": "npx ts-node src/c3-did.ts",
+    "test": "npx ts-node test/c3-did.test.ts",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "did",
+    "decentralized-identity",
+    "cardano",
+    "blake2b",
+    "c3-alliance",
+    "cooperative"
+  ],
+  "author": "JW Barbre <team@plausiblepotentials.com>",
+  "license": "MIT",
+  "dependencies": {
+    "blakejs": "^1.2.1",
+    "bs58": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.4.0",
+    "ts-node": "^10.9.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
