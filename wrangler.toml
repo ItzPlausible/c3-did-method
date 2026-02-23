@@ -1,7 +1,7 @@
-name = "voice-plausiblepotentials"
+name = "c3-voice"
 compatibility_date = "2024-12-01"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = "./dist"
 
 [vars]
-SITE_URL = "https://voice.plausiblepotentials.com"
+SITE_URL = "https://c3-voice.org"
